@@ -27,7 +27,8 @@ app.use(
     session({
         secret:'iDecipher iFest 2k19',
         resave:false,
-        saveUninitialized:true
+        saveUninitialized:true,
+        // maxAge: 1000*30
 
     })
 )
@@ -120,6 +121,13 @@ app.get('/home',checkLoggedIn,(req,res)=>{
     res.render('rules');
 })
 
+app.use('*',checkLoggedIn, express.static(__dirname + '/public'))
+
+app.get('/1',checkLoggedIn,(req,res)=>{
+    let q={head:"Identify the place ",image:"img1.jpg"}
+    res.render('question',{q})
+
+})
 
 
 
