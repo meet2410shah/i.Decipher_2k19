@@ -2,6 +2,7 @@
 Web App for the event i.Decipher of iFest'19("Evanascent Qualm")
 ## Description
 ### Counter:
+---
 #### **async function getTime**
 ##### File Path: `/public/js/script.js`
 ##### Create the function given below in script.js
@@ -14,6 +15,7 @@ Web App for the event i.Decipher of iFest'19("Evanascent Qualm")
       // Here you will get the time object
   }
 ```
+***
 #### Time Object: 
 ##### This async function will return time object with the following properties
 ##### `err` obeject is undefined until the eventEnds;
@@ -28,3 +30,4 @@ Web App for the event i.Decipher of iFest'19("Evanascent Qualm")
     days: number;
   };
 ```
+***
