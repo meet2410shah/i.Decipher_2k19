@@ -16,9 +16,9 @@ Web App for the event i.Decipher of iFest'19("Evanascent Qualm")
   }
 ```
 ***
-#### Time Object: 
+#### **Time Object**: 
 ##### This async function will return time object with the following properties
-##### `err` obeject is undefined until the eventEnds;
+##### `err` obeject is undefined until the event ends;
 ```
   let time: {
     err: {
