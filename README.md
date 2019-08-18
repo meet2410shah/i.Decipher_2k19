@@ -3,7 +3,7 @@ Web App for the event i.Decipher of iFest'19("Evanascent Qualm")
 ## Description
 ### Counter:
 ---
-#### **async function getTime**
+#### **The Async function getTime:**
 ##### File Path: `/public/js/script.js`
 ##### Create the function given below in script.js
 ##### _parameter_ has two value :
