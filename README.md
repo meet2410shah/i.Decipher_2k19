@@ -24,10 +24,7 @@ Web App for the event i.Decipher of iFest'19("Evanascent Qualm")
     err: {
       message: string;
     };
-    seconds: number;
-    minutes: number;
-    hours: number;
-    days: number;
+    seconds: number
   };
 ```
 ***
