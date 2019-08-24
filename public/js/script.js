@@ -16,3 +16,41 @@ const getEventTime = timing => {
     hr.send();
   });
 };
+
+const _ = el => {
+  return document.getElementById(el);
+};
+
+const seconds = _("seconds");
+const minutes = _("minutes");
+const hours = _("hours");
+const days = _("days");
+
+getEventTime("Start").then(time => {
+  seconds.innerText = parseInt(time.seconds) % 60;
+  minutes.innerText = parseInt((time.seconds) / 60) % 60;
+  hours.innerText = parseInt(((time.seconds) / 60) / 60) % 24;
+  days.innerText = parseInt((((time.seconds) / 60) / 60) / 24);
+
+  const Clear = () => {
+    clearInterval(setSeconds);
+  };
+  let timeInSec = time.seconds
+  const setSeconds = setInterval(() => {
+    if (
+      seconds.innerText == 0 &&
+      minutes.innerText == 0 &&
+      hours.innerText == 0 &&
+      days.innerText == 0
+    ) {
+      Clear();
+      document.location.replace(document.location.origin + "/thankyou");
+    } else {
+      seconds.innerText = parseInt(timeInSec) % 60;
+      minutes.innerText = parseInt((timeInSec) / 60) % 60;
+      hours.innerText = parseInt(((timeInSec) / 60) / 60) % 24;
+      days.innerText = parseInt((((timeInSec) / 60) / 60) / 24);
+      timeInSec--;
+    }
+  }, 1000);
+});

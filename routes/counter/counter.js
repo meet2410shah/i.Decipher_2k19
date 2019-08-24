@@ -1,11 +1,13 @@
+const config = require("config");
 const express = require("express");
 const router = express.Router();
 const calculateTime = require("./calculateTime");
 
-const TWO_HOURS = 1000 * 60 * 60 * 2;
+const EVENT_DURATION = config.get("IDECIPHER.EVENT_DURATION");
+const EVENT_START_TIME = config.get("IDECIPHER.EVENT_START_TIME");
 
-const EVENT_START = new Date("August 22, 2019 13:00:00");
-const EVENT_END = new Date(parseInt(EVENT_START.getTime() + TWO_HOURS));
+const EVENT_START = new Date(EVENT_START_TIME);
+const EVENT_END = new Date(parseInt(EVENT_START.getTime() + EVENT_DURATION));
 
 router.get("/getEventStartTime", (req, res) => {
   res.send(calculateTime(EVENT_START));
@@ -15,4 +17,7 @@ router.get("/getEventEndTime", (req, res) => {
   res.send(calculateTime(EVENT_END));
 });
 
+router.get("/", (req, res) => {
+  res.render("counter");
+});
 module.exports = router;
