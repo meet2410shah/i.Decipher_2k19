@@ -1,0 +1,33 @@
+<%- include partials/header.ejs %>
+<div class="container">
+  <%- include counter_small.ejs%>
+  <h1 class="center">iDecipher'19</h1>
+  <div class="col-md-3 mx-auto text-center mt-5">
+    <h3>Login</h3>
+    <form action="/login" method="POST">
+      <div class="form-group">
+        <label>Team Name</label>
+        <input
+          type="text"
+          name="teamName"
+          placeholder="Team Name"
+          required
+        />
+      </div>
+      <div>
+        <label>Password</label>
+        <input
+          type="password"
+          name="password"
+          placeholder=" Enter password"
+          required
+        />
+      </div>
+      <button>Login</button>
+    </form>
+    <br />
+    <p class="lead">Don't have an account</p>
+    <a href="./signup" class="btn btn-outline-dark">Sign Up</a>
+  </div>
+</div>
+<%- include partials/footer.ejs %>

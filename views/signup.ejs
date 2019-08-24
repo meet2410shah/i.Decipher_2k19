@@ -1,0 +1,56 @@
+<%- include partials/header.ejs %>
+<div>
+  <%- include counter_small.ejs %>
+  <h1>iDecipher'19</h1>
+  <h3>Sign Up</h3>
+  <% if(err) { %>
+    <div><%= err.msg %></div>
+  <% } %>
+  <form action="/signup" method="POST">
+    <div>
+      <label>Name1</label>
+      <% if(err) { %>
+        <input 
+          type="text"
+          name="name1"
+          placeholder="Enter name of the 1st Team Member"
+          value=<%= team.name1 %>
+          required
+        >
+      <% } else { %>
+        <input 
+          type="text"
+          name="name1"
+          placeholder="Enter name of the 1st Team Member"
+          required
+        >
+      <% } %>
+    </div>
+    <div>
+      <label>Name2</label>
+      <input type="text" name="name2" placeholder="Enter name of the 2nd Team Member" required>
+    </div>
+    <div>
+      <label>Team Name</label>
+      <input type="text" name="teamName" placeholder="Team Name" required>
+    </div>
+    <div>
+      <label>Email</label>
+      <input type="email" name="email" placeholder="Email" required>
+    </div>
+    <div>
+      <label>Contact Number</label>
+      <input type="tel" name="phone" placeholder="Conatact Number" maxlength="10" pattern="[0-9]{10}" required>
+    </div>
+    <div>
+      <label>Password</label>
+      <input type="password" name="password" placeholder="Password" required>
+    </div>
+    <button type="submit">Create Account</button>
+  </form>
+  <br>
+  <p>Already have an account </p>
+  <a href="/login">Login</a>
+  <br>
+</div>
+<%- include partials/footer.ejs %>

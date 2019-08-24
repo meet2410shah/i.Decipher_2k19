@@ -1,0 +1,95 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.center {
+  text-align: center;
+  margin-bottom: 20px;
+}
+.title {
+  text-align: center;
+  font-size: 100px;
+}
+.calender {
+  display: flex;
+  justify-content: space-between;
+  padding: 50px 100px;
+  margin-left: 100px;
+  margin-right: 100px;
+}
+.calender_small {
+  position: fixed;
+  right: 0;
+  float: right;
+  width: 300px;
+  background-color: #aaa;
+  padding: 20px 40px;
+}
+.HMS {
+  padding: -10px;
+}
+.timeBar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.timeBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.flexBox {
+  display: flex;
+  font-size: 24px;
+  border-radius: 5px;
+  width: 70px;
+  height: 40px;
+  justify-content: center;
+  text-align: center;
+}
+.days {
+  height: 120px;
+  width: 120px;
+  border: 1px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 50px;
+  border-radius: 20px;
+  box-shadow: 0px 0px 10px #aaa;
+}
+.hours {
+  height: 120px;
+  width: 120px;
+  border: 1px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 50px;
+  border-radius: 20px;
+  box-shadow: 0px 0px 10px #aaa;
+}
+.minutes {
+  height: 120px;
+  width: 120px;
+  border: 1px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 50px;
+  border-radius: 20px;
+  box-shadow: 0px 0px 10px #aaa;
+}
+.seconds {
+  height: 120px;
+  width: 120px;
+  border: 1px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 50px;
+  border-radius: 20px;
+  box-shadow: 0px 0px 10px #aaa;
+}

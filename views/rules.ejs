@@ -1,0 +1,15 @@
+<%- include partials/header.ejs %>
+    <div>    
+        <h1>Rules of the event!</h1>
+        <%- include counter_small.ejs%>
+        <form action="/verification" method="POST">
+            <div>
+                <label for="">I have read all the instructions carefully, I agree for this compition.</label>
+                <input type="checkbox" name="accept" id="accept">
+            </div>
+            <div>
+                <button>Submit</button>
+            </div>
+        </form>
+    </div>
+<%- include partials/footer.ejs %>

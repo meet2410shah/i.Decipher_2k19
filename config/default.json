@@ -1,0 +1,17 @@
+{
+  "IDECIPHER": {
+    "EVENT_START_TIME": "August 25, 2019 23:00:00",
+    "EVENT_DURATION": "7200000"
+  },
+  "SERVER": {
+    "PORT": "80",
+    "DATABASE": {
+      "CONNECTION_STRING": "mongodb://localhost/iDecipher2019"
+    }
+  },
+  "SESSION": {
+    "SESS_NAME": "idecipher2019",
+    "SESS_SECRET": "mhad",
+    "SESS_LIFETIME": 7200000
+  }
+}

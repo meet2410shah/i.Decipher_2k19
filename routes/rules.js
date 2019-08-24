@@ -1,0 +1,11 @@
+const express = require('express');
+const router = express.Router();
+
+const checkTime = require('../middleware/checkTime');
+
+router.get("/", checkTime, (req, res) => {
+    res.set('Cache-Control', 'no-cache, no-store, must-revalidate');
+    res.render("rules");
+});
+
+module.exports = router;
