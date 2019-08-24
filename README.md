@@ -1,5 +1,5 @@
 # i.Decipher_2k19
-Web App for the event i.Decipher of iFest'19("Evanascent Qualm")
+Web App for the event i.Decipher of iFest'19 (Evanascent Qualm)
 ## How to start the app?  
 > STEP: 1 Run `npm install`  
 > STEP: 2 Run `nodemon`  
