@@ -15,7 +15,7 @@ const teamSchema = new Schema({
         unique: true
     },
     phone: Number,
-    answers: [[String, Number]],
+    answers: [[String, Date.now]],
     current: {type: Number, default: 1},
     registeredDate: { type: Date, default: Date.now },
     isVerified: Boolean

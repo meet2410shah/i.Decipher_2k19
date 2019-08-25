@@ -5,11 +5,9 @@
   <h3>Sign Up</h3>
   <% if(err) { %>
     <div><%= err.msg %></div>
-  <% } %>
-  <form action="/signup" method="POST">
-    <div>
-      <label>Name1</label>
-      <% if(err) { %>
+    <form action="/signup" method="POST">
+      <div>
+        <label>Name1</label>
         <input 
           type="text"
           name="name1"
@@ -17,40 +15,76 @@
           value=<%= team.name1 %>
           required
         >
-      <% } else { %>
+      </div>  
+      <div>
+        <label>Name2</label>
         <input 
-          type="text"
-          name="name1"
-          placeholder="Enter name of the 1st Team Member"
+          type="text" 
+          name="name2" 
+          placeholder="Enter name of the 2nd Team Member" 
+          value=<%= team.name2 %>
           required
         >
-      <% } %>
-    </div>
-    <div>
-      <label>Name2</label>
-      <input type="text" name="name2" placeholder="Enter name of the 2nd Team Member" required>
-    </div>
-    <div>
-      <label>Team Name</label>
-      <input type="text" name="teamName" placeholder="Team Name" required>
-    </div>
-    <div>
-      <label>Email</label>
-      <input type="email" name="email" placeholder="Email" required>
-    </div>
-    <div>
-      <label>Contact Number</label>
-      <input type="tel" name="phone" placeholder="Conatact Number" maxlength="10" pattern="[0-9]{10}" required>
-    </div>
-    <div>
-      <label>Password</label>
-      <input type="password" name="password" placeholder="Password" required>
-    </div>
-    <button type="submit">Create Account</button>
-  </form>
-  <br>
-  <p>Already have an account </p>
-  <a href="/login">Login</a>
-  <br>
-</div>
+      </div>
+      <div>
+        <label>Team Name</label>
+        <input 
+          type="text" 
+          name="teamName" 
+          placeholder="Team Name" 
+          value=<%= team.teamName %>
+          required
+        >
+      </div>
+      <div>
+        <label>Email</label>
+        <input 
+          type="email"
+          name="email"
+          placeholder="Email"
+          value=<%= team.email %>
+          required
+        >
+      </div>
+      <div>
+        <label>Contact Number</label>
+        <input 
+          type="tel"
+          name="phone"
+          placeholder="Conatact Number"
+          maxlength="10" 
+          pattern="[0-9]{10}" 
+          value=<%= team.phone %>
+          required
+        >
+      </div>
+      <div>
+        <label>Password</label>
+        <input 
+          type="password"
+          name="password"
+          placeholder="Password" 
+          value=<%= team.password %>
+          required
+        >
+      </div>
+      <button type="submit">Create Account</button>
+    </form>
+    <br>
+    <p>Already have an account </p>
+    <a href="/login">Login</a>
+    <br>
+  </div>
+  <% } else {%>
+    <form action="/signup" method="POST">
+      <div>
+        <label>Name1</label>
+          <input 
+            type="text"
+            name="name1"
+            placeholder="Enter name of the 1st Team Member"
+            required
+          >
+      </div>
+  <% } %>
 <%- include partials/footer.ejs %>
