@@ -48,8 +48,9 @@ router.post('/:id', checkTime, isVerified, checkCurrent, (req, res) => {
     Teams
       .findOneAndUpdate({_id:iDecipherToken}, {current}, {new:true})
       .then((team) => {
+        let ans = {answer}
         let answers = team.answers;
-        answers.push(answer);
+        answers.push(ans);
         Teams
           .findOneAndUpdate({_id:iDecipherToken}, {answers}, {new:true})
           .then((team) => {
