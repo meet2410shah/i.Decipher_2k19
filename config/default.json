@@ -6,7 +6,7 @@
   "SERVER": {
     "PORT": "80",
     "DATABASE": {
-      "CONNECTION_STRING": "mongodb://localhost/iDecipher2019"
+      "CONNECTION_STRING": "mongodb+srv://hit:idecipher2019@ifest19-i5wtu.mongodb.net/test?retryWrites=true&w=majority"
     }
   },
   "SESSION": {
