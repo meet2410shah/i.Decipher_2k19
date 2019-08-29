@@ -2,6 +2,7 @@ const checkTime = require("../middleware/checkTime");
 const isVerified = require('../middleware/isVerified');
 const checkCurrent = require('../middleware/checkCurrent');
 const Teams = require('../database/models/teams');
+const fs = require('fs');
 
 const express = require("express");
 const router = express.Router();
@@ -48,8 +49,9 @@ router.post('/:id', checkTime, isVerified, checkCurrent, (req, res) => {
     Teams
       .findOneAndUpdate({_id:iDecipherToken}, {current}, {new:true})
       .then((team) => {
+        let ans = {answer}
         let answers = team.answers;
-        answers.push(answer);
+        answers.push(ans);
         Teams
           .findOneAndUpdate({_id:iDecipherToken}, {answers}, {new:true})
           .then((team) => {
