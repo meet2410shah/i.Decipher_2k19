@@ -18,7 +18,7 @@ router.get('/:id', checkTime,checkStartTime,  isVerified, checkCurrent, (req, re
   const { iDecipherToken } = req.cookies;
   Teams.findById(iDecipherToken, (err, team) => {
     if(team.current > 20) {
-      return res.redirect('/thankyou');
+      return res.render('thankyou');
     }
     if(req.params.id == team.current) {
       res.render('question', {
@@ -54,7 +54,7 @@ router.post('/:id', checkTime, checkStartTime, isVerified, checkCurrent, (req, r
           .findOneAndUpdate({_id:iDecipherToken}, {answers}, {new:true})
           .then((team) => {
             if(team.current > 20) {
-              return res.redirect('/thankyou');
+              return res.render('thankyou');
             }
             if(team) {
               res.redirect(`/question/${current}`);

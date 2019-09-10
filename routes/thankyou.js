@@ -20,9 +20,7 @@ router.get("/", (req, res) => {
     // Event is started
     if(time2.err) {
       // Event is completed
-      res.send(`
-        <h1>Thank You..</h1>
-      `);
+      res.render('thankyou');
     } else {
       // Event is not completed
       res.redirect('/questions');

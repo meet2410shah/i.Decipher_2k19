@@ -12,7 +12,11 @@ router.get('/', checkTime, checkStartTime, isVerified, (req, res) => {
   res.set('Cache-Control', 'no-cache, no-store, must-revalidate');
   const { iDecipherToken } = req.cookies;
   Teams.findById(iDecipherToken, (err, team) => {
-    res.redirect(`/question/${team.current}`);
+    if(team.current > 20) {
+      return res.render('thankyou');
+    } else {
+      return res.redirect(`/question/${team.current}`);
+    }
   })
 })
 

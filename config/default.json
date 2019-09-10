@@ -1,14 +1,14 @@
 {
   "IDECIPHER": {
-    "EVENT_START_TIME": "September 10, 2019 17:20:00",
-    "EVENT_END_TIME": "September 10, 2019 18:00:40",
+    "EVENT_START_TIME": "September 10, 2019 18:20:00",
+    "EVENT_END_TIME": "September 10, 2019 20:00:00",
     "EVENT_DURATION": "5400000"
   },
   "SERVER": {
     "PORT": "80",
     "DATABASE": {
-      "CONNECTION_STRING": "mongodb://localhost/iDecipher2019",
-      "CONNECTION_STRING2": "mongodb+srv://hit:idecipher2019@ifest19-i5wtu.mongodb.net/test?retryWrites=true&w=majority"
+      "CONNECTION_STRING2": "mongodb://localhost/iDecipher2019",
+      "CONNECTION_STRING": "mongodb+srv://hit:idecipher2019@ifest19-i5wtu.mongodb.net/test?retryWrites=true&w=majority"
     }
   },
   "SESSION": {
