@@ -1,4 +1,16 @@
 <%- include partials/header.ejs %>
     <%- include counter_small.ejs%>
-    <h1>The Question</h1>
-<%- include partials/footer.ejs %>
+    <h1>The Question <%= data.current %></h1>
+    <div style="padding: 40px">
+        <img style="height: 400px; width: 400px" src=<%= data.path %> alt="Hint for the question no.">
+        <form action=<%= data.action %> method="POST">
+        <input type="text" name="answer">
+        <button>Answer</button>
+        </form>
+        <form action=<%= data.skipAction %> method="POST">
+        <button>Skip</button>
+        </form>
+        <script src="../js/question.js"></script>
+    </div>
+</body>
+</html>

@@ -16,6 +16,7 @@ const login = require("./routes/login");
 const welcome = require("./routes/welcome");
 const rules = require("./routes/rules");
 const verification = require('./routes/verification');
+const dashboard = require('./routes/dashboard');
 
 // Set View Engine
 app.set("view engine", "ejs");
@@ -36,6 +37,7 @@ app.use("/question", question);
 app.use('/questions', questions);
 app.use("/thankyou", thankyou);
 app.use("/verification", verification);
+app.use('/dashboard', dashboard);
 
 const PORT = process.env.PORT || config.get('SERVER.PORT');
 app.listen(PORT, () => {

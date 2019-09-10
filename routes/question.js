@@ -3,16 +3,17 @@ const isVerified = require('../middleware/isVerified');
 const checkCurrent = require('../middleware/checkCurrent');
 const Teams = require('../database/models/teams');
 const fs = require('fs');
+const checkStartTime = require("../middleware/checkStartTime");
 
 const express = require("express");
 const router = express.Router();
 
-router.get('/',checkTime, isVerified, checkCurrent, (req, res) => {
+router.get('/',checkTime, checkStartTime, isVerified, checkCurrent, (req, res) => {
   res.set('Cache-Control', 'no-cache, no-store, must-revalidate');
   res.redirect('/questions');
 })
 
-router.get('/:id', checkTime, isVerified, checkCurrent, (req, res) => {
+router.get('/:id', checkTime,checkStartTime,  isVerified, checkCurrent, (req, res) => {
   res.set('Cache-Control', 'no-cache, no-store, must-revalidate');
   const { iDecipherToken } = req.cookies;
   Teams.findById(iDecipherToken, (err, team) => {
@@ -20,25 +21,21 @@ router.get('/:id', checkTime, isVerified, checkCurrent, (req, res) => {
       return res.redirect('/thankyou');
     }
     if(req.params.id == team.current) {
-      res.send(`
-      Question:${req.params.id}
-      <img style="height: 400px; width: 400px" src="/question/${team.current}.jpg" alt="Hint for the question no.${team.current}">
-      <form action='/question/${team.current}' method="POST">
-        <input type="text" name="answer">
-        <button>Answer</button>
-      </form>
-      <form action='/question/skip/${team.current}' method="POST">
-        <button>Skip</button>
-      </form>
-      <script src="../js/question.js"></script>
-      `);
+      res.render('question', {
+        data: {
+          path: `/question/${team.current}.jpg`,
+          current: `${team.current}`,
+          skipAction: `/question/skip/${team.current}`,
+          action: `/question/${team.current}`
+        }
+      });
     } else {
       res.redirect(`/question/${team.current}`);
     }
   })
 })
 
-router.post('/:id', checkTime, isVerified, checkCurrent, (req, res) => {
+router.post('/:id', checkTime, checkStartTime, isVerified, checkCurrent, (req, res) => {
   res.set('Cache-Control', 'no-cache, no-store, must-revalidate');
   const {answer} = req.body;
   const { iDecipherToken } = req.cookies;
@@ -69,14 +66,14 @@ router.post('/:id', checkTime, isVerified, checkCurrent, (req, res) => {
   }
 })
 
-router.get('/skip/:id', checkTime, isVerified, checkCurrent, (req, res) => {
+router.get('/skip/:id', checkTime, checkStartTime, isVerified, checkCurrent, (req, res) => {
   res.set('Cache-Control', 'no-cache, no-store, must-revalidate');
   Teams.findById(iDecipherToken, (err, team) => {
     res.redirect(`/${team.current}`);
   })
 });
 
-router.post('/skip/:id', checkTime, isVerified, (req, res) => {
+router.post('/skip/:id', checkTime,checkStartTime,  isVerified, (req, res) => {
   res.set('Cache-Control', 'no-cache, no-store, must-revalidate');
   const {answer} = req.body;
   const { iDecipherToken } = req.cookies;
