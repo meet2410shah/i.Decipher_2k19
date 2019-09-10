@@ -3,79 +3,11 @@
   <%- include counter_small.ejs %>
   <h1>iDecipher'19</h1>
   <h3>Sign Up</h3>
-  <% if(err) { %>
-    <div><%= err.msg %></div>
-    <form action="/signup" method="POST">
-      <div>
-        <label>Name1</label>
-        <input 
-          type="text"
-          name="name1"
-          placeholder="Enter name of the 1st Team Member"
-          value=<%= team.name1 %>
-          required
-        >
-      </div>  
-      <div>
-        <label>Name2</label>
-        <input 
-          type="text" 
-          name="name2" 
-          placeholder="Enter name of the 2nd Team Member" 
-          value=<%= team.name2 %>
-          required
-        >
-      </div>
-      <div>
-        <label>Team Name</label>
-        <input 
-          type="text" 
-          name="teamName" 
-          placeholder="Team Name" 
-          value=<%= team.teamName %>
-          required
-        >
-      </div>
-      <div>
-        <label>Email</label>
-        <input 
-          type="email"
-          name="email"
-          placeholder="Email"
-          value=<%= team.email %>
-          required
-        >
-      </div>
-      <div>
-        <label>Contact Number</label>
-        <input 
-          type="tel"
-          name="phone"
-          placeholder="Conatact Number"
-          maxlength="10" 
-          pattern="[0-9]{10}" 
-          value=<%= team.phone %>
-          required
-        >
-      </div>
-      <div>
-        <label>Password</label>
-        <input 
-          type="password"
-          name="password"
-          placeholder="Password" 
-          value=<%= team.password %>
-          required
-        >
-      </div>
-      <button type="submit">Create Account</button>
-    </form>
-    <br>
-    <p>Already have an account </p>
-    <a href="/login">Login</a>
-    <br>
+  <div>
+    <% if(err) { %>
+      <div style="background-color: red; color: white"><%= err.msg %></div>
+    <% } %>
   </div>
-  <% } else {%>
     <form action="/signup" method="POST">
       <div>
         <label>Name1</label>
@@ -83,6 +15,7 @@
           type="text"
           name="name1"
           placeholder="Enter name of the 1st Team Member"
+          minlength="3"
           required
         >
       </div>  
@@ -92,6 +25,7 @@
           type="text" 
           name="name2" 
           placeholder="Enter name of the 2nd Team Member" 
+          minlength="3"
           required
         >
       </div>
@@ -100,7 +34,8 @@
         <input 
           type="text" 
           name="teamName" 
-          placeholder="Team Name" 
+          placeholder="Team Name"
+          minlength="3"
           required
         >
       </div>
@@ -110,6 +45,8 @@
           type="email"
           name="email"
           placeholder="Email"
+          minlength="3"
+          maxlength="255"
           required
         >
       </div>
@@ -140,5 +77,4 @@
     <a href="/login">Login</a>
     <br>
   </div>
-  <% } %>
 <%- include partials/footer.ejs %>

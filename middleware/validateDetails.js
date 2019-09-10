@@ -12,7 +12,7 @@ const validateDetails = (req, res, next) => {
     }
 
     // Validate team Name
-    if((teamName.length <= 3)) {
+    if((teamName.length < 3)) {
       return res.render('signup', { err: {
         msg: "Team Name should be at least 4 character long.",
         code: 1001

@@ -14,7 +14,7 @@ const teamSchema = new Schema({
         maxlength: 255,
         unique: true
     },
-    phone: Number,
+    phone: {type: Number, unique: true},
     answers: [{ answer: String, time: { type: Date, default: Date.now } }],
     current: {type: Number, default: 1},
     registeredDate: { type: Date, default: Date.now },

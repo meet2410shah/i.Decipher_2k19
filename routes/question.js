@@ -22,6 +22,7 @@ router.get('/:id', checkTime, isVerified, checkCurrent, (req, res) => {
     if(req.params.id == team.current) {
       res.send(`
       Question:${req.params.id}
+      <img style="height: 400px; width: 400px" src="/question/${team.current}.jpg" alt="Hint for the question no.${team.current}">
       <form action='/question/${team.current}' method="POST">
         <input type="text" name="answer">
         <button>Answer</button>
@@ -84,8 +85,7 @@ router.post('/skip/:id', checkTime, isVerified, (req, res) => {
     return res.redirect(`/${current}`);
   } else {
     current++;
-  }
-  Teams
+    Teams
     .findOneAndUpdate({ _id : iDecipherToken }, { current }, { new : true })
     .then((team) => {
       let answers = team.answers;
@@ -103,6 +103,7 @@ router.post('/skip/:id', checkTime, isVerified, (req, res) => {
           }
         });
     });
+  };
 });
 
 module.exports = router;

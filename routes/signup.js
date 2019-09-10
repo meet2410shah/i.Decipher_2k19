@@ -27,27 +27,28 @@ router.post("/", checkTime, redirectQuestion, validateDetails, (req, res) => {
     phone,
     isVerified: false
   });
-  Team.save().then((result) => {
+  Team.save()
+  .then((result) => {
     if(result) {
       res.cookie("iDecipherToken", result._id);
-      return res.render("rules");
+      return res.redirect('/rules');
     } else {
       return res.status(403).render('signup', {
         err: {
           msg: 'User with the given email is already existed.',
           code: 403
-        },
-        team: { 
-          name1,
-          name2,
-          teamName,
-          email,
-          phone,
-          password 
         }
       });
     }
   })
+  .catch(e => {
+    return res.render('signup', {
+      err: {
+        msg: e.errmsg,
+        code: 1020
+      }
+    })
+  });
 });
 
 module.exports = router;
