@@ -17,6 +17,7 @@ const welcome = require("./routes/welcome");
 const rules = require("./routes/rules");
 const verification = require('./routes/verification');
 const dashboard = require('./routes/dashboard');
+const unautherized = require('./routes/unautherized');
 
 // Set View Engine
 app.set("view engine", "ejs");
@@ -38,7 +39,10 @@ app.use('/questions', questions);
 app.use("/thankyou", thankyou);
 app.use("/verification", verification);
 app.use('/dashboard', dashboard);
-
+app.use('/unautherized', unautherized);
+app.get('*', (req, res) => {
+  res.redirect('/');
+});
 const PORT = process.env.PORT || config.get('SERVER.PORT');
 app.listen(PORT, () => {
   console.log("Server started on http://localhost:" + PORT);

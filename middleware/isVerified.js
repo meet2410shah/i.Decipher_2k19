@@ -11,7 +11,7 @@ const isVerified = (req, res, next) => {
                     return res.redirect('/rules');
                 }
             } else {
-                return res.send('Unauthorised team error');
+                return res.redirect('/unautherized');
             }
         });
     } else {

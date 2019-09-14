@@ -17,6 +17,9 @@ router.get('/:id', checkTime,checkStartTime,  isVerified, checkCurrent, (req, re
   res.set('Cache-Control', 'no-cache, no-store, must-revalidate');
   const { iDecipherToken } = req.cookies;
   Teams.findById(iDecipherToken, (err, team) => {
+    if(!team) {
+      return res.redirect('/unautherized');
+    }
     if(team.current > 20) {
       return res.render('thankyou');
     }

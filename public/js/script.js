@@ -35,9 +35,10 @@ getEventTime("Start").then(time => {
 
     const Clear = () => {
       clearInterval(setSeconds);
+      clearInterval(checkSeconds);
     };
-    let timeInSec = time.seconds
-    const setSeconds = setInterval(() => {
+    let timeInSec = time.seconds;
+    const checkSeconds = setInterval(() => {
       if (
         seconds.innerText == 0 &&
         minutes.innerText == 0 &&
@@ -46,13 +47,19 @@ getEventTime("Start").then(time => {
       ) {
         Clear();
         document.location.replace(document.location.origin + "/thankyou");
-      } else {
+      }
+    }, 1000);
+    const setSeconds = setInterval(() => {
         seconds.innerText = parseInt(timeInSec) % 60;
         minutes.innerText = parseInt((timeInSec) / 60) % 60;
         hours.innerText = parseInt(((timeInSec) / 60) / 60) % 24;
         days.innerText = parseInt((((timeInSec) / 60) / 60) / 24);
         timeInSec--;
-      }
     }, 1000);
+  } else {
+    seconds.innerText = 0;
+    minutes.innerText = 0;
+    hours.innerText = 0;
+    days.innerText = 0;
   }
 });

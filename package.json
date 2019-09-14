@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/meet2410shah/i.Decipher_2k19#readme",
   "dependencies": {
+    "bcrypt": "^3.0.6",
     "config": "^3.2.2",
     "cookie-parser": "^1.4.4",
     "ejs": "^2.6.2",
