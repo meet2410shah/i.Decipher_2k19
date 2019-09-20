@@ -13,6 +13,7 @@ const app = express();
 // Modules
 const cors = require(`cors`);
 const cookieParser = require(`cookie-parser`);
+const favicon = require(`serve-favicon`);
 
 // Routes Required
 const welcome = require(`./routes/welcome`);
@@ -36,6 +37,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname + `/public`));
 app.use(cookieParser());
 app.use(cors());
+app.use(favicon(`${__dirname}/public/images/favicon.ico`));
 
 // Routes Setup
 app.use(`/`, welcome);
