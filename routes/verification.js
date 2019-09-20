@@ -2,30 +2,33 @@ const express = require('express');
 const router = express.Router();
 const Teams = require('../database/models/teams');
 
-const checkLoggedIn = require('../middleware/checkLoggedIn');
-const redirectQuestion = require('../middleware/redirectQuestion');
-const checkTime = require("../middleware/checkTime");
+const checkEventEndTime = require('../middleware/checkEventEndTime');
+const jwt = require('jsonwebtoken');
 
-router.post('/', checkTime, (req, res) => {
+router.post('/', checkEventEndTime, (req, res) => {
     res.set('Cache-Control', 'no-cache, no-store, must-revalidate');
-    const { accept } = req.body;
-    if(accept == "on") {
-        const { iDecipherToken } = req.cookies;
-        if(iDecipherToken) {
-            Teams.findOneAndUpdate({_id:iDecipherToken}, {isVerified: true}, {new:true})
-            .then((team) => {
-                if(team) {
-                    res.redirect('/question');
-                } else {
-                    res.send('Unauthorised team error');
-                }
-            }); 
+    const { iDecipherToken } = req.cookies;
+    jwt.verify(iDecipherToken, 'iDecipherToken', (err, authData) => {
+        if(err) {
+            return res.status(403).redirect('/unautherized');
         } else {
-            res.redirect('/login');
+            const team = authData;
+            if(!team) {
+                return res.redirect('/unautherized');
+            }
+            const { _id } = team;
+            Teams
+                .findOneAndUpdate({ _id : _id }, { isVerified: true }, { new : true })
+                .then(team => {
+                    if(team) {
+                        return res.redirect('/question');
+                    }
+                })
+                .catch(e => {
+                    return res.redirect('/unautherized');
+                });
         }
-    } else {
-        return res.redirect('rules');
-    }
+    });
 })
 
 module.exports = router;

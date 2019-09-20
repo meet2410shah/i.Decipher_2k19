@@ -7,10 +7,19 @@
         <input type="text" name="answer">
         <button>Answer</button>
         </form>
-        <form action=<%= data.skipAction %> method="POST">
-        <button>Skip</button>
+        <form id="skipForm" action=<%= data.skipAction%> method="POST">
+        <button id="skipThis">Skip</button>
         </form>
         <script src="../js/question.js"></script>
     </div>
+    <script>
+        const skipThis = document.getElementById('skipThis');
+        skipThis.addEventListener('click', (e) => {
+            e.preventDefault();
+            if(confirm(`Are you want to skip this question? \n(You will not be able to attend the question again.) \nPress OK to skip this question.`)) {
+                document.getElementById('skipForm').submit();
+            }
+        })
+    </script>
 </body>
 </html>

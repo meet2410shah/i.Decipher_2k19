@@ -1,19 +1,16 @@
 {
   "IDECIPHER": {
-    "EVENT_START_TIME": "September 16, 2019 00:00:00",
-    "EVENT_END_TIME": "September 17, 2019 01:30:00",
-    "EVENT_DURATION": 7200000
+    "EVENT_START_TIME": "September 20, 2019 23:55:00",
+    "EVENT_END_TIME": "September 21, 2019 02:50:00",
+    "EVENT_DURATION": 7200000,
+    "SECRET_KEY": "iDecipherToken2019"
   },
   "SERVER": {
     "PORT": "80",
     "DATABASE": {
-      "CONNECTION_STRING": "mongodb://localhost/iDecipher2019",
-      "CONNECTION_STRING2": "mongodb+srv://hit:idecipher2019@ifest19-i5wtu.mongodb.net/test?retryWrites=true&w=majority"
-    }
-  },
-  "SESSION": {
-    "SESS_NAME": "idecipher2019",
-    "SESS_SECRET": "mhad",
-    "SESS_LIFETIME": 5400000
+      "CONNECTION_STRING2": "mongodb://localhost/iDecipher2019",
+      "CONNECTION_STRING": "mongodb+srv://hit:idecipher2019@ifest19-i5wtu.mongodb.net/test?retryWrites=true&w=majority"
+    },
+    "URL": "http://www.idecipher.rocks.com"
   }
 }

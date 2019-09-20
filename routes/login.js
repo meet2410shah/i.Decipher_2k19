@@ -1,47 +1,67 @@
+// Configuration file
 const config = require('config');
+const DURATION = config.get('IDECIPHER.EVENT_DURATION');
+const EVENT_END_DATE = config.get('IDECIPHER.EVENT_END_TIME');
+const SECRET_KEY = config.get('IDECIPHER.SECRET_KEY');
+
+// Express Router Setup
 const express = require('express');
 const router = express.Router();
+
+// Database Connection
 const Teams = require('../database/models/teams');
 
-const DURATION = config.get('IDECIPHER.EVENT_DURATION');
-
+// Middleware Functions
 const checkLoggedIn = require('../middleware/checkLoggedIn');
-const redirectQuestion = require('../middleware/redirectQuestion');
-const checkTime = require("../middleware/checkTime");
+const checkEventEndTime = require("../middleware/checkEventEndTime");
 
-router.get("/", checkTime, redirectQuestion, (req, res) => {
+// Helper Functions and Modules
+const calculateTime = require('../helper/calculateTime');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+
+// Router Definition
+router.get("/", checkEventEndTime, checkLoggedIn, (req, res) => {
   res.set('Cache-Control', 'no-cache, no-store, must-revalidate');
-  res.render("login");
+  res.render("login", {
+    err: null,
+    team: null,
+    time: calculateTime(new Date(EVENT_END_DATE))
+  });
 });
 
-const bcrypt = require('bcrypt');
-
-router.post("/", checkTime, redirectQuestion, (req, res) => {
+router.post("/", checkEventEndTime, checkLoggedIn, (req, res) => {
   res.set('Cache-Control', 'no-cache, no-store, must-revalidate');
   const { teamName, password } = req.body;
-    Teams.findOne({ teamName }).then((team) => {
-      if(!team) {
+  Teams.findOne({ teamName }).then((team) => {
+    if(!team) {
+      return res.render('login', {
+        err: {
+          msg: `No such team with the name ${ teamName } is existed.`,
+          code: 601
+        },
+        team: null,
+        time: calculateTime(new Date(EVENT_END_DATE))
+      })
+    }
+    bcrypt.compare(password, team.password, function(err, ans) {
+      if(ans == true) {
+        jwt.sign({ team }, SECRET_KEY, { expiresIn: DURATION }, (err, token) => {
+          res.cookie('iDecipherToken', token, { maxAge : DURATION });
+          return res.redirect('/questions');
+        });
+      } else {
         return res.render('login', {
           err: {
-            msg: "No such team with the given name is existed.",
-            code: 601
-          }
-        })
+            msg: "Password is Incorrect.",
+            code: 604
+          },
+          team,
+          time: calculateTime(new Date(EVENT_END_DATE))
+        });
       }
-      bcrypt.compare(password, team.password, function(err, ans) {
-        if(ans == true) {
-          res.cookie("iDecipherToken", team._id, {maxAge: DURATION});
-          return res.redirect('/question');
-        } else {
-          return res.render('login', {
-            err: {
-              msg: "Incorrect Password",
-              code: 604
-            }
-          });
-        }
-      });
     });
+  });
 });
 
 module.exports = router;

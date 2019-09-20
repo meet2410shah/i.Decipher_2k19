@@ -1,4 +1,4 @@
-const getEventTime = timing => {
+/*const getEventTime = timing => {
   return new Promise((resolve, reject) => {
     let time = {};
     var hr = new XMLHttpRequest();
@@ -50,11 +50,11 @@ getEventTime("Start").then(time => {
       }
     }, 1000);
     const setSeconds = setInterval(() => {
-        seconds.innerText = parseInt(timeInSec) % 60;
-        minutes.innerText = parseInt((timeInSec) / 60) % 60;
-        hours.innerText = parseInt(((timeInSec) / 60) / 60) % 24;
-        days.innerText = parseInt((((timeInSec) / 60) / 60) / 24);
-        timeInSec--;
+      seconds.innerText = parseInt(timeInSec) % 60;
+      minutes.innerText = parseInt((timeInSec) / 60) % 60;
+      hours.innerText = parseInt(((timeInSec) / 60) / 60) % 24;
+      days.innerText = parseInt((((timeInSec) / 60) / 60) / 24);
+      timeInSec--;
     }, 1000);
   } else {
     seconds.innerText = 0;
@@ -62,4 +62,27 @@ getEventTime("Start").then(time => {
     hours.innerText = 0;
     days.innerText = 0;
   }
-});
+});*/
+
+// New Logic for counter
+/*const _ = el => {
+  return document.getElementById(el);
+};
+
+const seconds = _("seconds");
+const minutes = _("minutes");
+const hours = _("hours");
+const days = _("days");
+
+const setSeconds = setInterval(() => {
+  seconds.innerText = parseInt(seconds.innerText) <= 0 ? 59 : --parseInt(seconds.innerText);
+  if(parseInt(seconds.innerText) === 59) {
+    minutes.innerText = parseInt(minutes.innerText) <= 0 ? 59 : --parseInt(minutes.innerText);
+    if(parseInt(minutes.innerText) === 59) {
+      hours.innerText = parseInt(hours.innerText) <= 0 ? 23 : --parseInt(hours.innerText);
+      if(parseInt(hours.innerText) === 23) {
+        days.innerText = parseInt(days.innerText) <= 0 ? 0 : --parseInt(days.innerText);
+      }
+    }
+  }
+}, 1000);*/

@@ -1,18 +1,24 @@
-const express = require("express");
-const router = express.Router();
-
+// Configuration File
 const config = require("config");
-const calculateTime = require("../routes/counter/calculateTime");
-
 const EVENT_START_TIME = config.get("IDECIPHER.EVENT_START_TIME");
 const EVENT_END_TIME = config.get("IDECIPHER.EVENT_END_TIME");
 
+// Express Router Setup
+const express = require("express");
+const router = express.Router();
+
+// Database Connection
+const Teams = require('../database/models/teams');
+
+// Helper Functions and Modules
+const calculateTime = require("../helper/calculateTime");
+const jwt = require('jsonwebtoken');
+
+// Router Definition
 router.get("/", (req, res) => {
   res.set('Cache-Control', 'no-cache, no-store, must-revalidate');
-  const EVENT_START = new Date(EVENT_START_TIME);
-  const EVENT_END = new Date(EVENT_END_TIME);
-  const time1 = calculateTime(EVENT_START);
-  const time2 = calculateTime(EVENT_END);
+  const time1 = calculateTime(new Date(EVENT_START_TIME));
+  const time2 = calculateTime(new Date(EVENT_END_TIME));
   if (!time1.err) {
     // Event is not started
     return res.redirect("/dashboard");
@@ -22,8 +28,22 @@ router.get("/", (req, res) => {
       // Event is completed
       res.render('thankyou');
     } else {
-      // Event is not completed
-      res.redirect('/questions');
+      // Event is not completed 
+      const { iDecipherToken } = req.cookies;
+      jwt.verify(iDecipherToken, 'iDecipherToken', (err, authData) => {
+        if(err) {
+          return res.status(403).redirect('/unautherized');
+        } else {
+          const { _id } = authData.team;
+          Teams.findById(_id, (err, team) => {
+            if(team.current > 20) {
+              return res.render('thankyou');
+            } else {
+              return res.redirect(`/questions`);
+            }
+          })
+        }
+      });
     }
   }
 });

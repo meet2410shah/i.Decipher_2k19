@@ -4,6 +4,9 @@
   <h1 class="center">iDecipher'19</h1>
   <div class="col-md-3 mx-auto text-center mt-5">
     <h3>Login</h3>
+    <% if(err) { %>
+      <div style="background-color: red; color: white"><%= err.msg %></div>
+    <% } %>
     <form action="/login" method="POST">
       <div class="form-group">
         <label>Team Name</label>

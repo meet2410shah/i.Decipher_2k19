@@ -1,49 +1,59 @@
 // Database Connection
-const connection = require('./database/connection');
+const connection = require(`./database/connection`);
 
-const config = require('config');
-const cookieParser = require('cookie-parser');
-const express = require("express");
+// Configuration File
+const config = require(`config`);
+const URL = config.get(`SERVER.URL`);
+const PORT = process.env.PORT || config.get(`SERVER.PORT`);
+
+// Express App Setup
+const express = require(`express`);
 const app = express();
 
-// Different Routes are Added.
-const counter = require("./routes/counter/counter");
-const signup = require("./routes/signup");
-const thankyou = require("./routes/thankyou");
-const question = require("./routes/question");
-const questions = require("./routes/questions");
-const login = require("./routes/login");
-const welcome = require("./routes/welcome");
-const rules = require("./routes/rules");
-const verification = require('./routes/verification');
-const dashboard = require('./routes/dashboard');
-const unautherized = require('./routes/unautherized');
+// Modules
+const cors = require(`cors`);
+const cookieParser = require(`cookie-parser`);
 
-// Set View Engine
-app.set("view engine", "ejs");
+// Routes Required
+const welcome = require(`./routes/welcome`);
+const rules = require(`./routes/rules`);
+const login = require(`./routes/login`);
+const signup = require(`./routes/signup`);
+const counter = require(`./routes/counter`);
+const question = require(`./routes/question`);
+const questions = require(`./routes/questions`);
+const dashboard = require(`./routes/dashboard`);
+const verification = require(`./routes/verification`);
+const unautherized = require(`./routes/unautherized`);
+const thankyou = require(`./routes/thankyou`);
 
-// Set up express App
+// View Engine Setup
+app.set(`view engine`, `ejs`);
+
+// Express App Setup
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + `/public`));
 app.use(cookieParser());
+app.use(cors());
 
 // Routes Setup
-app.use('/', welcome);
-app.use('/rules', rules);
-app.use('/login', login);
-app.use("/signup", signup);
-app.use("/counter", counter);
-app.use("/question", question);
-app.use('/questions', questions);
-app.use("/thankyou", thankyou);
-app.use("/verification", verification);
-app.use('/dashboard', dashboard);
-app.use('/unautherized', unautherized);
-app.get('*', (req, res) => {
-  res.redirect('/');
+app.use(`/`, welcome);
+app.use(`/rules`, rules);
+app.use(`/login`, login);
+app.use(`/signup`, signup);
+app.use(`/counter`, counter);
+app.use(`/question`, question);
+app.use(`/questions`, questions);
+app.use(`/dashboard`, dashboard);
+app.use(`/verification`, verification);
+app.use(`/unautherized`, unautherized);
+app.use(`/thankyou`, thankyou);
+app.get(`*`, (req, res) => {
+  res.redirect(`/`);
 });
-const PORT = process.env.PORT || config.get('SERVER.PORT');
+
+// App Listening
 app.listen(PORT, () => {
-  console.log("Server started on http://localhost:" + PORT);
+  console.log(`Server started on ${URL} : ${PORT}`);
 });

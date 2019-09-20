@@ -1,14 +1,27 @@
 <%- include partials/header.ejs %>
-<div>
+<div class="container">
+  <nav>
+      <div class="row">
+          <img src="images/Webp.net-compress-image.png" class="logo" height="150px" width="150px">
+          <div class="col-lg-8"></div>
+          <img 
+              src="http://ieee.daiict.ac.in/ieee2019/images/IEEESB.PNG" 
+              class="ieee-logo" 
+              alt="IEEE"
+              height="80px" 
+              width="200px"
+          >
+      </div>
+  </nav>
   <%- include counter_small.ejs %>
   <h1>i.Decipher 2k19</h1>
-  <h3>Sign Up</h3>
+  <h2 style="font-size: 40px; text-align: center">Sign Up</h2>
   <div>
     <% if(err) { %>
       <div style="background-color: red; color: white"><%= err.msg %></div>
     <% } %>
   </div>
-    <form action="/signup" method="POST">
+    <form action="/signup" method="POST" style="font-size: 20px" class="d-flex flex-column align-items-center">
       <div>
         <label>Name1</label>
         <input 
@@ -16,9 +29,10 @@
           name="name1"
           placeholder="Enter name of the 1st Team Member"
           minlength="3"
+          class="input"
           required
         >
-      </div>  
+      </div>
       <div>
         <label>Name2</label>
         <input 
@@ -26,6 +40,7 @@
           name="name2" 
           placeholder="Enter name of the 2nd Team Member" 
           minlength="3"
+          class="input"
           required
         >
       </div>
@@ -36,6 +51,7 @@
           name="teamName" 
           placeholder="Team Name"
           minlength="3"
+          class="input"
           required
         >
       </div>
@@ -47,6 +63,7 @@
           placeholder="Email"
           minlength="3"
           maxlength="255"
+          class="input"
           required
         >
       </div>
@@ -56,25 +73,37 @@
           type="tel"
           name="phone"
           placeholder="Conatact Number"
-          maxlength="10" 
+          maxlength="10"
+          class="input" 
           pattern="[0-9]{10}" 
           required
         >
       </div>
       <div>
         <label>Password</label>
-        <input 
+        <input
           type="password"
           name="password"
           placeholder="Password" 
+          class="input"
           required
         >
       </div>
-      <button type="submit">Create Account</button>
+      <div class="nav-button d-flex flex-column justify-content-center align-items-center">
+        <button type="submit" class="kave-btn">
+          <span class="kave-line">Create Account</span>
+        </button>
+        <br>
+        <br>
+        <h5>Already hav e an account</h5>
+        <a href="/login">
+          <button class="kave-btn">
+              <span class="kave-line">Login</span>
+          </button>
+        </a>
+      </div>
     </form>
     <br>
-    <p>Already have an account </p>
-    <a href="/login">Login</a>
     <br>
   </div>
 <%- include partials/footer.ejs %>
