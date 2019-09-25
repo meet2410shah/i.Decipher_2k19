@@ -2,6 +2,7 @@
 const config = require("config");
 const EVENT_START_TIME = config.get("IDECIPHER.EVENT_START_TIME");
 const EVENT_END_TIME = config.get("IDECIPHER.EVENT_END_TIME");
+const SECRET_KEY = config.get(`IDECIPHER.SECRET_KEY`);
 
 // Express Router Setup
 const express = require("express");
@@ -26,18 +27,18 @@ router.get("/", (req, res) => {
     // Event is started
     if(time2.err) {
       // Event is completed
-      res.render('thankyou');
+      res.status(200).render('thankyou');
     } else {
       // Event is not completed 
       const { iDecipherToken } = req.cookies;
-      jwt.verify(iDecipherToken, 'iDecipherToken', (err, authData) => {
+      jwt.verify(iDecipherToken, SECRET_KEY, (err, authData) => {
         if(err) {
-          return res.status(403).redirect('/unautherized');
+          return res.status(401).redirect('/unautherized');
         } else {
           const { _id } = authData.team;
           Teams.findById(_id, (err, team) => {
             if(team.current > 20) {
-              return res.render('thankyou');
+              return res.status(200).render('thankyou');
             } else {
               return res.redirect(`/questions`);
             }

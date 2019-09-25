@@ -10,7 +10,7 @@ const isLoggedIn = (req, res, next) => {
     if(iDecipherToken) {
       jwt.verify(iDecipherToken, SECRET_KEY, (err, authData) => {
         if(err) {
-          return res.status(403).redirect('/unautherized');
+          return res.status(401).redirect('/unautherized');
         } else {
           return next();
         }

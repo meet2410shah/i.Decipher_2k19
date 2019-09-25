@@ -3,6 +3,7 @@ const config = require('config');
 const EVENT_END_DATE = config.get('IDECIPHER.EVENT_END_TIME');
 const EVENT_START_TIME = config.get("IDECIPHER.EVENT_START_TIME");
 const DURATION = config.get('IDECIPHER.EVENT_DURATION');
+const SECRET_KEY = config.get('IDECIPHER.SECRET_KEY');
 
 // Express Router Setup 
 const express = require("express");
@@ -55,9 +56,9 @@ router.post("/", checkEventEndTime, checkLoggedIn, validateDetails, (req, res) =
         isVerified: false
       });
       Team.save()
-        .then((result) => {
-          if(result) {
-            jwt.sign({ result }, 'iDecipherToken', { expiresIn: DURATION }, (err, token) => {
+        .then((team) => {
+          if(team) {
+            jwt.sign({ team }, SECRET_KEY, { expiresIn: DURATION }, (err, token) => {
               res.cookie('iDecipherToken', token, { maxAge: DURATION });
               return res.redirect('/rules');
             });

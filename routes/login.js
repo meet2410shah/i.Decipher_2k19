@@ -1,7 +1,7 @@
 // Configuration file
 const config = require('config');
 const DURATION = config.get('IDECIPHER.EVENT_DURATION');
-const EVENT_END_DATE = config.get('IDECIPHER.EVENT_END_TIME');
+const EVENT_START_DATE = config.get('IDECIPHER.EVENT_START_TIME');
 const SECRET_KEY = config.get('IDECIPHER.SECRET_KEY');
 
 // Express Router Setup
@@ -26,7 +26,7 @@ router.get("/", checkEventEndTime, checkLoggedIn, (req, res) => {
   res.render("login", {
     err: null,
     team: null,
-    time: calculateTime(new Date(EVENT_END_DATE))
+    time: calculateTime(new Date(EVENT_START_DATE))
   });
 });
 
@@ -41,7 +41,7 @@ router.post("/", checkEventEndTime, checkLoggedIn, (req, res) => {
           code: 601
         },
         team: null,
-        time: calculateTime(new Date(EVENT_END_DATE))
+        time: calculateTime(new Date(EVENT_START_DATE))
       })
     }
     bcrypt.compare(password, team.password, function(err, ans) {
@@ -57,7 +57,7 @@ router.post("/", checkEventEndTime, checkLoggedIn, (req, res) => {
             code: 604
           },
           team,
-          time: calculateTime(new Date(EVENT_END_DATE))
+          time: calculateTime(new Date(EVENT_START_DATE))
         });
       }
     });

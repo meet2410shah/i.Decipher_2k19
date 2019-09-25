@@ -20,11 +20,10 @@ const welcome = require(`./routes/welcome`);
 const rules = require(`./routes/rules`);
 const login = require(`./routes/login`);
 const signup = require(`./routes/signup`);
-const counter = require(`./routes/counter`);
+const logout = require(`./routes/logout`);
 const question = require(`./routes/question`);
 const questions = require(`./routes/questions`);
 const dashboard = require(`./routes/dashboard`);
-const verification = require(`./routes/verification`);
 const unautherized = require(`./routes/unautherized`);
 const thankyou = require(`./routes/thankyou`);
 
@@ -44,11 +43,10 @@ app.use(`/`, welcome);
 app.use(`/rules`, rules);
 app.use(`/login`, login);
 app.use(`/signup`, signup);
-app.use(`/counter`, counter);
 app.use(`/question`, question);
+app.use(`/logout`, logout);
 app.use(`/questions`, questions);
 app.use(`/dashboard`, dashboard);
-app.use(`/verification`, verification);
 app.use(`/unautherized`, unautherized);
 app.use(`/thankyou`, thankyou);
 app.get(`*`, (req, res) => {

@@ -16,11 +16,6 @@ const getEventTime = timing => {
       hr.send();
     });
   };
-  
-  const _ = el => {
-    return document.getElementById(el);
-  };
-  
   const seconds = _("seconds");
   const minutes = _("minutes");
   const hours = _("hours");

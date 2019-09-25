@@ -15,10 +15,10 @@ const teamSchema = new Schema({
         unique: true
     },
     phone: {type: Number, unique: true},
-    answers: [{ answer: String, time: { type: Date, default: Date.now } }],
+    answers: [{ answer: String, time: { type: Date, default: Date.now }}],
     current: {type: Number, default: 1},
     registeredDate: { type: Date, default: Date.now },
-    isVerified: Boolean
+    isVerified: { type : Boolean, default: false }
 });
 
 const Teams = mongoose.model('Teams', teamSchema);

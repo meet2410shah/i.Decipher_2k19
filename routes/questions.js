@@ -20,7 +20,7 @@ router.get('/', checkEventEndTime, checkStartTime, isVerified, (req, res) => {
   const { iDecipherToken } = req.cookies;
   jwt.verify(iDecipherToken, SECRET_KEY, (err, authData) => {
     if(err) {
-      return res.status(403).redirect('/unautherized');
+      return res.status(401).redirect('/unautherized');
     } else {
       const { team } = authData;
       if(team.current > 20) {

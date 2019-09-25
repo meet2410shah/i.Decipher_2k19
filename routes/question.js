@@ -2,6 +2,7 @@
 const config = require('config');
 const DURATION = config.get('IDECIPHER.EVENT_DURATION');
 const EVENT_END_DATE = config.get('IDECIPHER.EVENT_END_TIME');
+const SECRET_KEY = config.get('IDECIPHER.SECRET_KEY');
 
 // Express Router Setup
 const express = require("express");
@@ -19,6 +20,8 @@ const Teams = require('../database/models/teams');
 // Special Functions and Modules
 const jwt = require('jsonwebtoken');
 const calculateTime = require('../helper/calculateTime');
+const fs = require('fs');
+const path = require('path');
 
 // Router Definition
 router.get('/',checkEventEndTime, checkStartTime, isVerified, checkCurrent, (req, res) => {
@@ -29,9 +32,9 @@ router.get('/',checkEventEndTime, checkStartTime, isVerified, checkCurrent, (req
 router.get('/:id', checkEventEndTime,checkStartTime,  isVerified, checkCurrent, (req, res) => {
   res.set('Cache-Control', 'no-cache, no-store, must-revalidate');
   const { iDecipherToken } = req.cookies;
-  jwt.verify(iDecipherToken, 'iDecipherToken', (err, authData) => {
+  jwt.verify(iDecipherToken, SECRET_KEY, (err, authData) => {
     if(err) {
-      return res.status(403).redirect('/unautherized');
+      return res.status(401).redirect('/unautherized');
     } else {
       const { _id } = authData.team;
       Teams.findById(_id, (err, team) => {
@@ -42,12 +45,17 @@ router.get('/:id', checkEventEndTime,checkStartTime,  isVerified, checkCurrent, 
           return res.render('thankyou');
         }
         if(req.params.id == team.current) {
+          const dir = __dirname;
+          const predir = dir.slice(0,dir.length - 7);
+          const file = team.current + '.txt';
+          const text = fs.readFileSync(path.join(predir,'public','question', file), 'utf8');
           res.render('question', {
             data: {
               path: `/question/${team.current}.jpg`,
               current: `${team.current}`,
               skipAction: `/question/skip/${team.current}`,
-              action: `/question/${team.current}`
+              action: `/question/${team.current}`,
+              text
             },
             time: calculateTime(new Date(EVENT_END_DATE))
           });
@@ -68,9 +76,9 @@ router.post('/:id', checkEventEndTime, checkStartTime, isVerified, checkCurrent,
     res.redirect(`/question/${current}`);
   } else {
     current++;
-    jwt.verify(iDecipherToken, 'iDecipherToken', (err, authData) => {
+    jwt.verify(iDecipherToken, SECRET_KEY, (err, authData) => {
       if(err) {
-        return res.status(403).redirect('/unautherized');
+        return res.status(401).redirect('/unautherized');
       } else {
         const { _id } = authData.team;
         Teams
@@ -111,9 +119,9 @@ router.post('/skip/:id', checkEventEndTime,checkStartTime,  isVerified, (req, re
     return res.redirect(`/${current}`);
   } else {
     current++;
-    jwt.verify(iDecipherToken, 'iDecipherToken', (err, authData) => {
+    jwt.verify(iDecipherToken, SECRET_KEY, (err, authData) => {
       if(err) {
-        return res.status(403).redirect('/unautherized');
+        return res.status(401).redirect('/unautherized');
       } else {
         const { _id } = authData.team;
         Teams
