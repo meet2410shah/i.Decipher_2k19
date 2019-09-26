@@ -1,6 +1,5 @@
 // Configuration File
 const config = require('config');
-const DURATION = config.get('IDECIPHER.EVENT_DURATION');
 const EVENT_END_DATE = config.get('IDECIPHER.EVENT_END_TIME');
 const SECRET_KEY = config.get('IDECIPHER.SECRET_KEY');
 
