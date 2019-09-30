@@ -31,20 +31,24 @@ router.get("/", (req, res) => {
     } else {
       // Event is not completed 
       const { iDecipherToken } = req.cookies;
-      jwt.verify(iDecipherToken, SECRET_KEY, (err, authData) => {
-        if(err) {
-          return res.status(401).redirect('/unautherized');
-        } else {
-          const { _id } = authData.team;
-          Teams.findById(_id, (err, team) => {
-            if(team.current > 20) {
-              return res.status(200).render('thankyou');
-            } else {
-              return res.redirect(`/questions`);
-            }
-          })
-        }
-      });
+      if(iDecipherToken) {
+        jwt.verify(iDecipherToken, SECRET_KEY, (err, authData) => {
+          if(err) {
+            return res.redirect('/unautherized');
+          } else {
+            const { _id } = authData.team;
+            Teams.findById(_id, (err, team) => {
+              if(team.current > 20) {
+                return res.status(200).render('thankyou');
+              } else {
+                return res.redirect(`/questions`);
+              }
+            })
+          }
+        });
+      } else {
+        res.redirect('/login');
+      }
     }
   }
 });

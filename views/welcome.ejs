@@ -1,56 +1,89 @@
-<%- include partials/header.ejs %>
-<div class="container">
-    <nav>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta tags -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    
+    <!-- Title -->
+    <title>i.Decipher 2k19</title>
+
+    <!-- Links for css-->
+    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/indexStyle.css">
+    <link rel="stylesheet" href="./css/aos.css" />
+    <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+</head>
+<body style="width: 100%">
+    <!-- Container -->
+    <div class="container">
+        <!-- Images -->
         <div class="row">
             <div class="col-3">
-                <img src="images/Webp.net-compress-image.png" class="logo" height="150px" width="150px">
+                <img
+                    src="images/Webp.net-compress-image.png" 
+                    class="logo" 
+                    height="150px" 
+                    width="150px"
+                >
             </div>
             <div class="col-lg-6"></div>
             <div class="col-3">
                 <img 
-                src="images/IEEESB.png" 
-                class="ieee-logo" 
-                alt="IEEE"
-                height="80px" 
-                width="200px"
+                    src="images/IEEESB.png" 
+                    class="ieee-logo" 
+                    alt="IEEE"
+                    height="80px" 
+                    width="200px"
                 >
             </div>
         </div>
-    </nav>
-    <h1>i.Decipher 2k19</h1>
-    <h4>Be ready to get sudden surge of synapses in your cerebral cortex</h4>
-    <h4>by taking visual cues and neuron twisting questions.</h4>
-    <%- include counter.ejs%>
-    <div class="nav-button">
-        <a href="/signup">
-            <button class="kave-btn">
-                <span class="kave-line">Register Now</span>
-            </button>
-        </a>
-        <a href="/login">
-            <button class="kave-btn">
-                <span class="kave-line">Login</span>
-            </button>
-        </a>
+        <!-- End Images -->
+        <!-- Title and subtitle -->
+        <h1>i.Decipher 2k19</h1>
+        <h4>
+            Be ready to get sudden surge of synapses in your cerebral cortex
+            <br>
+            by taking visual cues and neuron twisting questions.
+        </h4>
+        <!-- End of Title and subtitle -->
+        <!-- Buttons for register and login -->
+        <div class="nav-button">
+            <a href="/signup">
+                <button class="kave-btn">
+                    <span class="kave-line">Register Now</span>
+                </button>
+            </a>
+            <a href="/login">
+                <button class="kave-btn">
+                    <span class="kave-line">Login</span>
+                </button>
+            </a>
+        </div>
+        <!-- End of buttons -->
     </div>
-<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-<script>
-    AOS.init({
+    <!-- End Container -->
+    <!-- Scripts File -->
+    <script src="js/aos.js"></script>
+    <script>
+        AOS.init({
             offset: 400,
             duration: 1000
-    });
-</script>
-<script src="js/three.r92.min.js"></script>
-<script src="js/vanta.net.min.js"></script>
-<script>
-VANTA.NET({
-    el: "*",
-    color: 0x0099e6,
-    backgroundColor: 0x000000,
-    points: 8,
-    maxDistance: 18.00,
-    spacing: 18.00
-})
-</script>
-</div>
-<%- include partials/footer.ejs %>
+        });
+    </script>
+    <script src="js/three.r92.min.js"></script>
+    <script src="js/vanta.net.min.js"></script>
+    <script>
+        VANTA.NET({
+            el: "*",
+            color: 0x0099e6,
+            backgroundColor: 0x000000,
+            points: 8,
+            maxDistance: 18.00,
+            spacing: 18.00
+        })
+    </script>
+</body>
+</html>

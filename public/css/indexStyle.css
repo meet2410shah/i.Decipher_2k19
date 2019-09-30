@@ -6,9 +6,7 @@ body {
   background: #000000;
   color:#aee7f5;
   font-family: 'Open Sans', serif;
-  /* display: flex;
-  justify-content: center;
-  align-items: center; */
+  font-size: 1.2rem;
 }
 .logo{
     border-radius: 50%;
@@ -27,6 +25,7 @@ body {
   font-family: "Roboto", sans-serif;
   text-transform: uppercase;
   font-weight: 500;
+  font-size: 14px;
   letter-spacing: 1.8px;
   width: 200px;
   height: 70px;
@@ -63,6 +62,7 @@ body {
   color: #00d6fc;
   text-shadow: 0 0 8px rgba(0, 214, 252, 0.4);
   font-weight: 600;
+  transform: scale(1.1);
 }
 .kave-btn:hover.kave-btn:before {
   left: 0;
@@ -146,9 +146,24 @@ hr{
 ol{
     text-align: justify;
     margin-left: 50px;
+    font-family: "Roboto", serif;
 }
 p{
     margin: 10px 75px;
     text-align: justify;
-    font-family: "Roboto", sans-serif;
+    font-family: "Roboto", serif;
+}
+@media (max-width:450px){
+  body{
+    font-size: 1rem;
+    margin:0;
+    padding:0;
+  }
+  h1{
+      font-size:3rem;
+  }
+  .rules{
+      margin:0px -25px;
+      margin-right: 50px;
+  }
 }

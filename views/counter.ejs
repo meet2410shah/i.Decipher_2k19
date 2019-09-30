@@ -29,7 +29,6 @@ const days = _("days");
 const Clear = () => {
   clearInterval(setSeconds);
   clearInterval(checkTime);
-  document.location.replace(document.location.origin + "/thankyou");
 };
 const checkTime = setInterval(() => {
   if (
@@ -39,6 +38,7 @@ const checkTime = setInterval(() => {
     days.innerText == 0
   ) {
     Clear();
+    location.reload();
   }
 }, 1000);
         

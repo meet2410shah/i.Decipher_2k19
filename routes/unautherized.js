@@ -6,7 +6,7 @@ const router = express.Router();
 router.get(`/`, (req, res) => {
     res.set(`Cache-Control`, `no-cache, no-store, must-revalidate`);
     res.clearCookie(`iDecipherToken`);
-    return res.render(`unautherized`);
+    return res.redirect(`/login`);
 });
 
 module.exports = router;

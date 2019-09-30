@@ -14,6 +14,7 @@ const app = express();
 const cors = require(`cors`);
 const cookieParser = require(`cookie-parser`);
 const favicon = require(`serve-favicon`);
+const fileUpload = require(`express-fileupload`);
 
 // Routes Required
 const welcome = require(`./routes/welcome`);
@@ -26,6 +27,7 @@ const questions = require(`./routes/questions`);
 const dashboard = require(`./routes/dashboard`);
 const unautherized = require(`./routes/unautherized`);
 const thankyou = require(`./routes/thankyou`);
+const admin = require(`./routes/admin`);
 
 // View Engine Setup
 app.set(`view engine`, `ejs`);
@@ -37,6 +39,7 @@ app.use(express.static(__dirname + `/public`));
 app.use(cookieParser());
 app.use(cors());
 app.use(favicon(`${__dirname}/public/images/favicon.ico`));
+app.use(fileUpload());
 
 // Routes Setup
 app.use(`/`, welcome);
@@ -49,6 +52,7 @@ app.use(`/questions`, questions);
 app.use(`/dashboard`, dashboard);
 app.use(`/unautherized`, unautherized);
 app.use(`/thankyou`, thankyou);
+app.use(`/admin`, admin);
 app.get(`*`, (req, res) => {
   res.redirect(`/`);
 });

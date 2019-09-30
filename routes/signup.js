@@ -36,7 +36,7 @@ router.get("/", checkEventEndTime, registerationClosed, checkLoggedIn, (req, res
   res.set('Cache-Control', 'no-cache, no-store, must-revalidate');
   res.render("signup", {
     err: null,
-    time: calculateTime(new Date(EVENT_START_DATE))
+    time: calculateTime(new Date(EVENT_START_TIME))
   })
 });
 
@@ -59,7 +59,7 @@ router.post("/", checkEventEndTime, checkLoggedIn, validateDetails, (req, res) =
           if(team) {
             jwt.sign({ team }, SECRET_KEY, { expiresIn: DURATION }, (err, token) => {
               res.cookie('iDecipherToken', token, { maxAge: DURATION });
-              return res.redirect('/rules');
+              return res.render('success');
             });
           } else {
             return res.status(403).render('signup', {
@@ -67,7 +67,7 @@ router.post("/", checkEventEndTime, checkLoggedIn, validateDetails, (req, res) =
                 msg: 'User with the given email is already existed.',
                 code: 403
               },
-              time: calculateTime(new Date(EVENT_START_DATE))
+              time: calculateTime(new Date(EVENT_START_TIME))
             });
           }
         })
@@ -77,7 +77,7 @@ router.post("/", checkEventEndTime, checkLoggedIn, validateDetails, (req, res) =
               msg: e.errmsg,
               code: 1020
             },
-            time: calculateTime(new Date(EVENT_START_DATE))
+            time: calculateTime(new Date(EVENT_START_TIME))
           });
         });
     });

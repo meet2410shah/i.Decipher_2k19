@@ -17,10 +17,17 @@ const isVerified = (req, res, next) => {
             } else {
                 const { _id } = authData.team;
                 Teams.findById({ _id }, (err, team) => {
-                    if(team.isVerified === true) {
-                        return next();
+                    if(err) {
+                        return res.redirect('/unautherized');
+                    }
+                    if(team) {
+                        if(team.isVerified === true) {
+                            return next();
+                        } else {
+                            return res.status(403).redirect(`/rules`);
+                        }
                     } else {
-                        return res.status(403).redirect(`/rules`);
+                        return res.redirect('/unautherized');
                     }
                 });
             }

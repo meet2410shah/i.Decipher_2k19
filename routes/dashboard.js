@@ -13,8 +13,16 @@ const isVerified = require(`../middleware/isVerified`);
 // Helper Functions and Modules
 const calculateTime = require(`../helper/calculateTime`);
 
+const redirectQuestions = (req, res, next) => {
+    const time = calculateTime(new Date(EVENT_START_DATE));
+    if(time.err) {
+        return res.redirect('/questions');
+    }
+    return next();
+}
+
 // Router Definition
-router.get(`/`, checkEventEndTime, isVerified, (req, res) => {
+router.get(`/`, checkEventEndTime, isVerified, redirectQuestions,(req, res) => {
     res.set(`Cache-Control`, `no-cache, no-store, must-revalidate`);
     res.render(`dashboard`, {
         time: calculateTime(new Date(EVENT_START_DATE))

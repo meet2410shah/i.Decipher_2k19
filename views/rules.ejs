@@ -1,9 +1,8 @@
 <%- include partials/header.ejs %>
     <div>    
-        <h1>Rules of the event!</h1>
-        <%- include counter_small.ejs%>
+        <h2 class="text-center">Rules of the event!</h2>
         <form action="/rules" method="POST">
-            <div style="font-size: 20px; padding: 40px">
+            <div style="font-size: 20px; letter-spacing: 0.5px; padding: 50px">
                 1. The event duration is 1 hour and 30 minutes. (No extra time will be
                 given under any circumstances)
                 <br>
@@ -34,14 +33,32 @@
                 allowed to use any social media sites during the event.
                 <br>
                 11. Any kind of unusual behaviour leads to your disqualification.
-                IMPORTANT: Under any circumstances, the decision taken by the
-                coordinators of the event will be considered as the final decision.
-                <br>
-                <br>
-                <label for="">I have read all the instructions carefully, I agree for this compition.</label>
-                <input type="checkbox" name="accept" id="accept" required>
-                <br>
-                <button style="height: 40px; width: 100px">Submit</button>
+                <br><br>
+                <div class="alert alert-danger">
+                    IMPORTANT: Under any circumstances, the decision taken by the
+                    coordinators of the event will be considered as the final decision.
+                    <br>
+                </div>
+                <% if(isVerified) { %>
+                    <div class="d-flex justify-content-center">
+                        <a href="/dashboard">
+                            <button class="kave-btn">
+                                <span class="kave-line">Go to Dashboard</span>
+                            </button>
+                        </a>
+                    </div>
+                <% } else { %>
+                    <label for="">I have read all the instructions carefully, I agree for this compition.</label>
+                    <div class="custom-control custom-switch">
+                        <input type="checkbox" class="custom-control-input" id="switch1" required>
+                        <label class="custom-control-label" for="switch1"></label>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <button class="kave-btn">
+                            <span class="kave-line">Submit</span>
+                        </button>
+                    </div>
+                <% } %>
             </div>
         </form>
     </div>

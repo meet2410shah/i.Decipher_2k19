@@ -20,9 +20,41 @@ const jwt = require('jsonwebtoken');
 // Router Definition
 router.get("/", checkEventEndTime, (req, res) => {
     res.set('Cache-Control', 'no-cache, no-store, must-revalidate');
-    res.render("rules", {
-        time: calculateTime(new Date(EVENT_END_TIME))
-    });
+    const { iDecipherToken } = req.cookies;
+    if(iDecipherToken) {
+        jwt.verify(iDecipherToken, SECRET_KEY, (err, authData) => {
+            if(err) {
+                return res.status(401).redirect(`/unautherized`);
+            } else {
+                const { _id } = authData.team;
+                Teams.findById({ _id }, (err, team) => {
+                    if(err) {
+                        return res.redirect('/unautherized');
+                    }
+                    if(team) {
+                        if(team.isVerified === true) {
+                            return res.render("rules", {
+                                time: calculateTime(new Date(EVENT_END_TIME)),
+                                isVerified: true
+                            });
+                        } else {
+                            res.render("rules", {
+                                time: calculateTime(new Date(EVENT_END_TIME)),
+                                isVerified: false
+                            });
+                        }
+                    } else {
+                        return res.redirect('/unautherized');
+                    }
+                });
+            }
+        });
+    } else {
+        res.render("rules", {
+            time: calculateTime(new Date(EVENT_END_TIME)),
+            isVerified: false
+        });
+    }
 });
 
 router.post("/", (req, res) => {
