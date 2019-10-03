@@ -1,26 +1,101 @@
-<%- include partials/header.ejs %>
-    <%- include counter_small.ejs%>
-    <h1>The Question <%= data.current %></h1>
-    <div style="padding: 40px">
-        <h2><%= data.text %></h2>
-        <img style="height: 400px; width: 400px" src=<%= data.path %> alt="Hint for the question no.">
-        <form action=<%= data.action %> method="POST">
-        <input type="text" name="answer">
-        <button>Answer</button>
-        </form>
-        <form id="skipForm" action=<%= data.skipAction%> method="POST">
-        <button id="skipThis">Skip</button>
-        </form>
-        <script src="../js/question.js"></script>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Question</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <style>
+      body {
+        background-color: black;
+        float: none;
+      }
+      .card {
+        clear: both;
+      }
+      .square {
+        float: right;
+        background-color: #000;
+        color: rgba(0, 214, 252, 0.8);
+        font-size: 1.5rem;
+        font-weight: 500;
+        padding: 8px;
+        margin: 3px;
+        border-radius: 5px;
+        text-align: center;
+        box-shadow: 0px 5px 7px 0px rgb(0, 214, 252);
+      }
+      .square:hover {
+        background-color: rgba(0, 214, 252, 1);
+        color: #000;
+      }
+      .time-notation {
+        font-size: 0.9rem;
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <%- include counter_small.ejs %>
+    <div class="card m-5">
+      <div class="row no-gutters" style="background-color: white">
+        <div class="col-sm-8 p-5">
+          <img
+            src="<%= data.path %>"
+            class="card-img"
+            alt="image"
+            height="450px"
+          />
+        </div>
+        <div class="col-sm-4 p-5">
+          <div class="card-body">
+            <h5 class="card-title">
+              Question <span id="Q_num"><%= data.current %></span>
+            </h5>
+            <p class="card-text">
+              <%= data.text %>
+            </p>
+            <p class="card-text">
+              <small class="text-muted"
+                >Hint: Lorem, ipsum dolor sit amet.</small
+              >
+            </p>
+            <form action="<%= data.action %>" method="POST" class="mb-3">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <button class="input-group-text">
+                                Answer
+                            </button>
+                        </div>
+                        <input type="text" 
+                            class="form-control"
+                            aria-label="With textarea" 
+                            name="answer"
+                            maxlength="20"
+                            required>
+                        </div>    
+                </form>
+                <form id="skipForm" action=<%= data.skipAction%> method="POST">
+                    <button id="skipThis" class="form-control"
+                    aria-label="With textarea">Skip</button>
+                </form>
+          </div>
+        </div>
+      </div>
     </div>
     <script>
-        const skipThis = document.getElementById('skipThis');
-        skipThis.addEventListener('click', (e) => {
-            e.preventDefault();
-            if(confirm(`Are you want to skip this question? \n(You will not be able to attend the question again.) \nPress OK to skip this question.`)) {
-                document.getElementById('skipForm').submit();
-            }
-        })
+      const skipThis = document.getElementById("skipThis");
+      skipThis.addEventListener("click", e => {
+        e.preventDefault();
+        if (
+          confirm(
+            `Are you want to skip this question? \n(You will not be able to attend the question again.) \nPress OK to skip this question.`
+          )
+        ) {
+          document.getElementById("skipForm").submit();
+        }
+      });
     </script>
-</body>
+  </body>
 </html>

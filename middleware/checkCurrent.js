@@ -1,33 +1,20 @@
-// Configuration file
-const config = require('config');
-const SECRET_KEY = config.get('IDECIPHER.SECRET_KEY');
-
-// Databse Connection
-const Teams = require('../database/models/teams');
-
-// Special Functions and Modules
-const jwt = require('jsonwebtoken');
-
 // Middleware Definition
 const checkCurrent = (req, res, next) => {
-    const { iDecipherToken } = req.cookies;
-    if(iDecipherToken) {
-        jwt.verify(iDecipherToken, SECRET_KEY, (err, authData) => {    
-            if(err) {
-                return res.status(401).redirect(`/unautherized`);
-            } else {
-                const { team } = authData;
-                Teams.findById(team._id, (err, team) => {
-                    if(team.current > 20) {
-                        return res.redirect(`/thankyou`);
-                    }
-                    return next();
-                });
-            }
-        });
+  const { team } = res.locals;
+  if (!team) {
+    return res.status(404).redirect(`/login`);
+  } else {
+    const { current } = req.params;
+    if (parseInt(team.current) === parseInt(current)) {
+      if (team.current >= 20) {
+        return res.redirect(`/thankyou`);
+      } else {
+        return next();
+      }
     } else {
-        return res.redirect(`/login`);
+      return res.redirect(`/question/${team.current}`);
     }
-}
+  }
+};
 
 module.exports = checkCurrent;

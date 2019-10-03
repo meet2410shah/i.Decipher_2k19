@@ -1,23 +1,11 @@
-// Configuration File
-const config = require('config');
-const SECRET_KEY = config.get('IDECIPHER.SECRET_KEY');
-
-// Special Functions and Modules
-const jwt = require('jsonwebtoken');
-
+// Middleware Definition
 const isLoggedIn = (req, res, next) => {
-    const { iDecipherToken } = req.cookies;
-    if(iDecipherToken) {
-      jwt.verify(iDecipherToken, SECRET_KEY, (err, authData) => {
-        if(err) {
-          return res.status(401).redirect('/unautherized');
-        } else {
-          return next();
-        }
-      });
-    } else {
-      return res.redirect('/login');
-    }
-}
-  
+  const { team } = res.locals;
+  if (!team) {
+    return res.status(404).redirect(`/login`);
+  } else {
+    return next();
+  }
+};
+
 module.exports = isLoggedIn;

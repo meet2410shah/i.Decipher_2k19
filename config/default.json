@@ -1,7 +1,7 @@
 {
   "IDECIPHER": {
-    "EVENT_START_TIME": "September 30, 2019 20:17:00",
-    "EVENT_END_TIME": "September 30, 2019 22:07:00",
+    "EVENT_START_TIME": "October 04, 2019 02:19:00",
+    "EVENT_END_TIME": "October 04, 2019 21:40:00",
     "EVENT_DURATION": 10000000,
     "SECRET_KEY": "iDecipherToken2019"
   },

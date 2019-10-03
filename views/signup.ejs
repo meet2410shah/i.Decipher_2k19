@@ -1,117 +1,191 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <!-- Meta tags -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    
+
     <!-- Title -->
     <title>i.Decipher 2k19</title>
 
     <!-- Links for css-->
     <link rel="stylesheet" href="./css/style.css" />
-    <link rel="stylesheet" href="./css/bootstrap.min.css">
-    <link rel="stylesheet" href="./css/indexStyle.css">
+    <link rel="stylesheet" href="./css/bootstrap.min.css" />
+    <link rel="stylesheet" href="./css/indexStyle.css" />
     <link rel="stylesheet" href="./css/aos.css" />
-    <link rel="stylesheet" href="./css/materialize.css">
-    <link rel="stylesheet" href="./css/loginStyle.css">
-    <link rel="stylesheet" href="./css/icons.css">
-    <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
-</head>
-<body style="width: 100%">
-  <!-- Container -->
-  <div class="container">
-    <!-- Images -->
-    <div class="row">
-      <div class="col-3">
-        <img
-          src="images/Webp.net-compress-image.png" 
-          class="logo" 
-          height="150px" 
-          width="150px"
-        >
-      </div>
-      <div class="col-lg-6"></div>
-      <div class="col-3">
-        <img 
-            src="images/IEEESB.png" 
-            class="ieee-logo" 
+    <link rel="stylesheet" href="./css/materialize.css" />
+    <link rel="stylesheet" href="./css/loginStyle.css" />
+    <link rel="stylesheet" href="./css/icons.css" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Lato&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body style="width: 100%">
+    <!-- Container -->
+    <div class="container">
+      <!-- Images -->
+      <div class="row">
+        <div class="col-3">
+          <img
+            src="images/Webp.net-compress-image.png"
+            class="logo"
+            height="150px"
+            width="150px"
+          />
+        </div>
+        <div class="col-lg-6"></div>
+        <div class="col-3">
+          <img
+            src="images/IEEESB.png"
+            class="ieee-logo"
             alt="IEEE"
-            height="80px" 
+            height="80px"
             width="200px"
-        >
-      </div>
-    </div>
-    <!-- End Images -->  
-    <!-- Main Content -->
-    <div ng-controller="RegisterCtrl" ng-app="myApp">
-      <div class="container">
-        <div class="signup-screen">
-          <div class="space-bot text-center">
-            <h1>Register</h1>
-            <div class="divider"></div>
-          </div>
-          <% if(err) { %>
-            <div style="background-color: red; color: white"><%= err.msg %></div>
-          <% } %>
-          <form action="/signup" method="POST" class="form-register" name="register" novalidate>
-            <div class="input-field col s10 m8">
-              <input name="name1" id="first-player-name" type="text" class="validate" required style="color: white;">
-              <label for="first-player-name">First Player's Name</label>
-            </div>
-            <div class="input-field col s10 m8">
-              <input name="name2" id="second-player-name" type="text" class="validate" required style="color: white;">
-              <label for="second-player-name">Second Player's Name</label>
-            </div>
-            <div class="input-field col s10 m8">
-              <input name="teamName" id="team-name" type="text" class="validate" required style="color: white;">
-              <label for="team-name">Team Name</label>
-            </div>
-            <div class="input-field col s10 m8">
-              <input name="phone" id="number" type="text" minlength="10" class="validate" required style="color: white;" maxlength="10">
-              <label for="number" >Mobile No.</label>
-            </div>
-            <div class="input-field col s10 m8">
-              <input name="email" id="email" type="email" name="email" ng-model="email" class="validate" required style="color: white;">
-              <label for="email">Email</label>
-            </div>
-            <p class="alert alert-danger" ng-show="form-register.email.$error.email">Your email is invalid.</p>
-            <div class="input-field col s10 m8">
-              <input name="password" id="password" type="password" name="password" ng-model="password" ng-minlength='6'
-                  class="validate" required style="color: white;">
-              <label for="password">Password</label>
-            </div>
-            <p class="alert alert-danger"
-              ng-show="form-register.password.$error.minlength || form.password.$invalid">Your password must
-              be at least 6 characters.</p>
-            <div class="space-top text-center">
-                <button type="submit" style="color: black;" ng-disabled="form-register.$invalid" class="waves-effect waves-light btn done" >
-                  <i class="material-icons left">done</i>Register Now
-                </button>
-            </div>
-          </form>
+          />
         </div>
       </div>
+      <!-- End Images -->
+      <!-- Main Content -->
+      <div ng-controller="RegisterCtrl" ng-app="myApp">
+        <div class="container">
+          <div class="signup-screen">
+            <div class="space-bot text-center">
+              <h1>Register</h1>
+              <div class="divider"></div>
+            </div>
+            <% if(err) { %>
+            <div class="alert alert-danger"><%= err.msg %></div>
+            <% } %>
+            <form
+              action="/signup"
+              method="POST"
+              class="form-register"
+              name="register"
+              novalidate
+            >
+              <div class="input-field col s10 m8">
+                <input
+                  name="name1"
+                  minlength="3"
+                  id="first-player-name"
+                  type="text"
+                  class="validate"
+                  style="color: white;"
+                  required
+                />
+                <label for="first-player-name">First Player's Name</label>
+              </div>
+              <div class="input-field col s10 m8">
+                <input
+                  name="name2"
+                  id="second-player-name"
+                  type="text"
+                  class="validate"
+                  minlength="3"
+                  required
+                  style="color: white;"
+                />
+                <label for="second-player-name">Second Player's Name</label>
+              </div>
+              <div class="input-field col s10 m8">
+                <input
+                  name="teamName"
+                  id="team-name"
+                  type="text"
+                  class="validate"
+                  minlength="3"
+                  required
+                  style="color: white;"
+                />
+                <label for="team-name">Team Name</label>
+              </div>
+              <div class="input-field col s10 m8">
+                <input
+                  name="phone"
+                  id="number"
+                  type="text"
+                  minlength="10"
+                  class="validate"
+                  required
+                  style="color: white;"
+                  maxlength="10"
+                />
+                <label for="number">Mobile No.</label>
+              </div>
+              <div class="input-field col s10 m8">
+                <input
+                  name="email"
+                  id="email"
+                  type="email"
+                  name="email"
+                  minlength="3"
+                  ng-model="email"
+                  class="validate"
+                  required
+                  style="color: white;"
+                />
+                <label for="email">Email</label>
+              </div>
+              <p
+                class="alert alert-danger"
+                ng-show="form-register.email.$error.email"
+              >
+                Your email is invalid.
+              </p>
+              <div class="input-field col s10 m8">
+                <input
+                  name="password"
+                  id="password"
+                  type="password"
+                  name="password"
+                  ng-model="password"
+                  ng-minlength="6"
+                  class="validate"
+                  required
+                  style="color: white;"
+                />
+                <label for="password">Password</label>
+              </div>
+              <p
+                class="alert alert-danger"
+                ng-show="form-register.password.$error.minlength || form.password.$invalid"
+              >
+                Your password must be at least 6 characters.
+              </p>
+              <div class="space-top text-center">
+                <button
+                  type="submit"
+                  style="color: black;"
+                  ng-disabled="form-register.$invalid"
+                  class="waves-effect waves-light btn done"
+                >
+                  <i class="material-icons left">done</i>Register Now
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <!-- End Main Content -->
     </div>
-    <!-- End Main Content -->
-  </div>
-  <!-- End Container -->
-  <!-- Scripts -->
-  <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/js/materialize.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
-  <script>
-    var myApp = angular.module("myApp", []);
-    myApp.controller("RegisterCtrl", function ($scope) {});
-  </script>
-  <script src="js/three.r92.min.js"></script>
-  <script src="js/vanta.waves.min.js"></script>
-  <script>
-    VANTA.WAVES({
-      el: "*",
-      color: 0x60607
-    })
-  </script>
-</body>
+    <!-- End Container -->
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/js/materialize.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+    <script>
+      var myApp = angular.module("myApp", []);
+      myApp.controller("RegisterCtrl", function($scope) {});
+    </script>
+    <script src="js/three.r92.min.js"></script>
+    <script src="js/vanta.waves.min.js"></script>
+    <script>
+      VANTA.WAVES({
+        el: "*",
+        color: 0x60607
+      });
+    </script>
+  </body>
 </html>
