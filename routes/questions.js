@@ -15,7 +15,7 @@ const checkStartTime = require("../middleware/checkStartTime");
 const jwt = require("jsonwebtoken");
 
 // Router Definition
-router.get("/", isVerified, (req, res) => {
+router.get("/", checkStartTime, isVerified, (req, res) => {
   res.set("Cache-Control", "no-cache, no-store, must-revalidate");
   const { iDecipherToken } = req.cookies;
   jwt.verify(iDecipherToken, SECRET_KEY, (err, authData) => {

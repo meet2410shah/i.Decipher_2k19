@@ -9,7 +9,7 @@ const checkCurrent = (req, res, next) => {
       return next();
     } else {
       if (team.current > 20) {
-        return res.redirect(`/thankyou`);
+        return res.render(`thankyou`);
       } else {
         return res.redirect(`/question/${team.current}`);
       }

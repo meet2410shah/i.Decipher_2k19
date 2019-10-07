@@ -69,7 +69,6 @@ router.post(`/`, validateDetails, (req, res) => {
               msg: e.errmsg,
               code: 604
             },
-            team,
             time: calculateTime(new Date(EVENT_START_TIME))
           });
         });
