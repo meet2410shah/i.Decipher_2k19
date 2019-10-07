@@ -5,7 +5,6 @@ const connection = require(`./database/connection`);
 const config = require(`config`);
 const URL = config.get(`SERVER.URL`);
 const PORT = process.env.PORT || config.get(`SERVER.PORT`);
-const SECRET_KEY = config.get(`IDECIPHER.SECRET_KEY`);
 
 // Express App Setup
 const express = require(`express`);
@@ -14,9 +13,15 @@ const app = express();
 // Database connection
 const Teams = require(`./database/models/teams`);
 
+// Middleware require
+const {
+  checkIdentity,
+  checkEventEndTime,
+  setLocals
+} = require(`./middleware/index/main`);
+
 // Modules
 const cors = require(`cors`);
-const jwt = require(`jsonwebtoken`);
 const cookieParser = require(`cookie-parser`);
 const favicon = require(`serve-favicon`);
 const fileUpload = require(`express-fileupload`);
@@ -47,38 +52,9 @@ app.use(favicon(`${__dirname}/public/images/favicon.ico`));
 app.use(fileUpload());
 
 // Routes Setup
-app.use((req, res, next) => {
-  const { iDecipherToken } = req.cookies;
-  if (!iDecipherToken) {
-    return next();
-  } else {
-    jwt.verify(iDecipherToken, SECRET_KEY, (err, authData) => {
-      if (err) {
-        return res.status(401).redirect(`/unautherized`);
-      } else {
-        const { _id } = authData.team;
-        res.locals._id = _id;
-        return next();
-      }
-    });
-  }
-});
-app.use((req, res, next) => {
-  const { _id } = res.locals;
-  if (!_id) {
-    return next();
-  } else {
-    Teams.findById(_id, (err, team) => {
-      if (err || !team) {
-        res.locals._id = null;
-        return next();
-      } else {
-        res.locals.team = team;
-        return next();
-      }
-    });
-  }
-});
+app.use(checkIdentity);
+app.use(setLocals);
+app.use(checkEventEndTime);
 app.use(`/`, welcome);
 app.use(`/rules`, rules);
 app.use(`/login`, login);

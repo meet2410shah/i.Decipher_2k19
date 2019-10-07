@@ -9,15 +9,15 @@ const express = require("express");
 const router = express.Router();
 
 // Database Connection
-const Teams = require('../database/models/teams');
+const Teams = require("../database/models/teams");
 
 // Helper Functions and Modules
 const calculateTime = require("../helper/calculateTime");
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
 
 // Router Definition
 router.get("/", (req, res) => {
-  res.set('Cache-Control', 'no-cache, no-store, must-revalidate');
+  res.set("Cache-Control", "no-cache, no-store, must-revalidate");
   const time1 = calculateTime(new Date(EVENT_START_TIME));
   const time2 = calculateTime(new Date(EVENT_END_TIME));
   if (!time1.err) {
@@ -25,29 +25,16 @@ router.get("/", (req, res) => {
     return res.redirect("/dashboard");
   } else {
     // Event is started
-    if(time2.err) {
+    if (time2.err) {
       // Event is completed
-      res.status(200).render('thankyou');
+      res.status(200).render("thankyou");
     } else {
-      // Event is not completed 
-      const { iDecipherToken } = req.cookies;
-      if(iDecipherToken) {
-        jwt.verify(iDecipherToken, SECRET_KEY, (err, authData) => {
-          if(err) {
-            return res.redirect('/unautherized');
-          } else {
-            const { _id } = authData.team;
-            Teams.findById(_id, (err, team) => {
-              if(team.current > 20) {
-                return res.status(200).render('thankyou');
-              } else {
-                return res.redirect(`/questions`);
-              }
-            })
-          }
-        });
+      // Event is not completed
+      const { team } = res.locals;
+      if (team.current > 20) {
+        return res.render("thankyou");
       } else {
-        res.redirect('/login');
+        return res.redirect("/questions");
       }
     }
   }

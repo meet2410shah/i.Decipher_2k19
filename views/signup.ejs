@@ -57,7 +57,6 @@
             </div>
             <% if(err) { %>
             <div class="alert alert-danger"><%= err.msg %></div>
-            <% } %>
             <form
               action="/signup"
               method="POST"
@@ -93,6 +92,7 @@
                 <input
                   name="teamName"
                   id="team-name"
+                  ng-model="teamName"
                   type="text"
                   class="validate"
                   minlength="3"
@@ -101,6 +101,12 @@
                 />
                 <label for="team-name">Team Name</label>
               </div>
+              <p
+                class="alert alert-danger"
+                ng-show="form-register.teamName.$error.minlength"
+              >
+                Your Team Name must be 3 characters long.
+              </p>
               <div class="input-field col s10 m8">
                 <input
                   name="phone"
@@ -119,7 +125,6 @@
                   name="email"
                   id="email"
                   type="email"
-                  name="email"
                   minlength="3"
                   ng-model="email"
                   class="validate"
@@ -154,6 +159,25 @@
               >
                 Your password must be at least 6 characters.
               </p>
+              <div class="input-field col s6">
+                <input
+                  id="passwordConfirm"
+                  type="password"
+                  name="confirmPassword"
+                  ng-model="password"
+                  ng-minlength="6"
+                  class="validate"
+                  required
+                  style="color: white;"
+                />
+                <label
+                  id="lblPasswordConfirm"
+                  for="passwordConfirm"
+                  data-error="Password not match"
+                  data-success="Password Match"
+                  >Password (Confirm)</label
+                >
+              </div>
               <div class="space-top text-center">
                 <button
                   type="submit"
@@ -165,6 +189,140 @@
                 </button>
               </div>
             </form>
+            <% } else { %>
+            <form
+              action="/signup"
+              method="POST"
+              class="form-register"
+              name="register"
+              novalidate
+            >
+              <div class="input-field col s10 m8">
+                <input
+                  name="name1"
+                  minlength="3"
+                  id="first-player-name"
+                  type="text"
+                  class="validate"
+                  style="color: white;"
+                  required
+                />
+                <label for="first-player-name">First Player's Name</label>
+              </div>
+              <div class="input-field col s10 m8">
+                <input
+                  name="name2"
+                  id="second-player-name"
+                  type="text"
+                  class="validate"
+                  minlength="3"
+                  required
+                  style="color: white;"
+                />
+                <label for="second-player-name">Second Player's Name</label>
+              </div>
+              <div class="input-field col s10 m8">
+                <input
+                  name="teamName"
+                  id="team-name"
+                  ng-model="teamName"
+                  type="text"
+                  class="validate"
+                  minlength="3"
+                  required
+                  style="color: white;"
+                />
+                <label for="team-name">Team Name</label>
+              </div>
+              <p
+                class="alert alert-danger"
+                ng-show="form-register.teamName.$error.minlength"
+              >
+                Your Team Name must be 3 characters long.
+              </p>
+              <div class="input-field col s10 m8">
+                <input
+                  name="phone"
+                  id="number"
+                  type="text"
+                  minlength="10"
+                  class="validate"
+                  required
+                  style="color: white;"
+                  maxlength="10"
+                />
+                <label for="number">Mobile No.</label>
+              </div>
+              <div class="input-field col s10 m8">
+                <input
+                  name="email"
+                  id="email"
+                  type="email"
+                  minlength="3"
+                  ng-model="email"
+                  class="validate"
+                  required
+                  style="color: white;"
+                />
+                <label for="email">Email</label>
+              </div>
+              <p
+                class="alert alert-danger"
+                ng-show="form-register.email.$error.email"
+              >
+                Your email is invalid.
+              </p>
+              <div class="input-field col s10 m8">
+                <input
+                  name="password"
+                  id="password"
+                  type="password"
+                  name="password"
+                  ng-model="password"
+                  ng-minlength="6"
+                  class="validate"
+                  required
+                  style="color: white;"
+                />
+                <label for="password">Password</label>
+              </div>
+              <p
+                class="alert alert-danger"
+                ng-show="form-register.password.$error.minlength || form.password.$invalid"
+              >
+                Your password must be at least 6 characters.
+              </p>
+              <div class="input-field col s6">
+                <input
+                  id="passwordConfirm"
+                  type="password"
+                  name="confirmPassword"
+                  ng-model="password"
+                  ng-minlength="6"
+                  class="validate"
+                  required
+                  style="color: white;"
+                />
+                <label
+                  id="lblPasswordConfirm"
+                  for="passwordConfirm"
+                  data-error="Password not match"
+                  data-success="Password Match"
+                  >Password (Confirm)</label
+                >
+              </div>
+              <div class="space-top text-center">
+                <button
+                  type="submit"
+                  style="color: black;"
+                  ng-disabled="form-register.$invalid"
+                  class="waves-effect waves-light btn done"
+                >
+                  <i class="material-icons left">done</i>Register Now
+                </button>
+              </div>
+            </form>
+            <% } %>
           </div>
         </div>
       </div>
@@ -178,6 +336,31 @@
     <script>
       var myApp = angular.module("myApp", []);
       myApp.controller("RegisterCtrl", function($scope) {});
+    </script>
+    <script>
+      $("#password").on("focusout", function(e) {
+        if ($(this).val() != $("#passwordConfirm").val()) {
+          $("#passwordConfirm")
+            .removeClass("valid")
+            .addClass("invalid");
+        } else {
+          $("#passwordConfirm")
+            .removeClass("invalid")
+            .addClass("valid");
+        }
+      });
+
+      $("#passwordConfirm").on("keyup", function(e) {
+        if ($("#password").val() != $(this).val()) {
+          $(this)
+            .removeClass("valid")
+            .addClass("invalid");
+        } else {
+          $(this)
+            .removeClass("invalid")
+            .addClass("valid");
+        }
+      });
     </script>
     <script src="js/three.r92.min.js"></script>
     <script src="js/vanta.waves.min.js"></script>

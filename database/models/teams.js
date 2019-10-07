@@ -26,5 +26,5 @@ const teamSchema = new Schema({
   isVerified: { type: Boolean, default: false }
 });
 
-const Teams = mongoose.model("Teams", teamSchema);
+const Teams = mongoose.model(`Teams`, teamSchema);
 module.exports = Teams;
