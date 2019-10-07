@@ -8,7 +8,7 @@ const calculateTime = require("../../helper/calculateTime");
 const checkEventEndTime = (req, res, next) => {
   const { err } = calculateTime(new Date(EVENT_END_TIME));
   if (err) {
-    return res.redirect(`/thankyou`);
+    return res.render(`thankyou`);
   }
   next();
 };

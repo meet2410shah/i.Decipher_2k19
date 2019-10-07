@@ -2,6 +2,9 @@
 const config = require(`config`);
 const EVENT_END_DATE = config.get(`IDECIPHER.EVENT_END_TIME`);
 
+const path = require(`path`);
+const fs = require(`fs`);
+
 // Express Router Setup
 const express = require(`express`);
 const router = express.Router();
@@ -18,7 +21,6 @@ const Teams = require(`../database/models/teams`);
 
 // Helper Functions
 const calculateTime = require(`../helper/calculateTime`);
-const generateData = require(`../helper/generateData`);
 const isValidAnswer = require(`../helper/isValidAnswer`);
 
 // Middleware
@@ -37,8 +39,21 @@ router.get(`/:current`, checkCurrent, (req, res) => {
   if (!team) {
     return res.redirect(`/login`);
   } else {
+    const dir = __dirname;
+    const predir = dir.slice(0, dir.length - 7);
+    const file = team.current + ".txt";
+    const text = fs.readFileSync(
+      path.join(predir, "public", "question", file),
+      "utf8"
+    );
     res.render(`question`, {
-      data: generateData(team.current),
+      data: {
+        path: `/question/${team.current}.jpg`,
+        current: `${team.current}`,
+        skipAction: `/question/skip/${team.current}`,
+        action: `/question/${team.current}`,
+        text
+      },
       time: calculateTime(new Date(EVENT_END_DATE))
     });
   }
